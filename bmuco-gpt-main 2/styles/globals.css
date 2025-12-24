@@ -1,0 +1,196 @@
+/* 1️⃣ Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* 2️⃣ Tailwind layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 3️⃣ CSS variables + custom classes - BALANCED DARKNESS */
+:root {
+  --obsidian: 160 22% 2.5%;
+  --charcoal: 160 18% 7%;
+  --paper: 60 18% 94%;
+  --oxford-green: 160 42% 18%;
+  --sage-mist: 150 18% 60%;
+  --cosmic-blue: 220 52% 18%;
+
+  --gradient-cosmic: linear-gradient(
+    135deg,
+    hsl(160 22% 3%) 0%,
+    hsl(160 18% 5%) 50%,
+    hsl(220 30% 6%) 100%
+  );
+
+  --gradient-nebula: radial-gradient(ellipse at 30% 20%, hsl(160 48% 20% / 0.12) 0%, transparent 50%),
+                      radial-gradient(ellipse at 70% 80%, hsl(280 40% 15% / 0.08) 0%, transparent 40%);
+
+  /* Enhanced gradient for better visibility on dark background */
+  --gradient-hero-text: linear-gradient(
+    135deg,
+    hsl(0 0% 100%) 0%,
+    hsl(150 25% 75%) 50%,
+    hsl(150 30% 70%) 100%
+  );
+}
+
+/* 4️⃣ Custom utility classes */
+.text-gradient-hero {
+  background-image: var(--gradient-hero-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Animated hero brand text - slightly darker, more pronounced */
+/* Animated hero brand text - green-blue gradient matching BMUCO brand */
+.hero-bmuco {
+  display: inline-block;
+  background: linear-gradient(90deg, #6FD98A, #4ECDC4, #45B7D1, #5DADE2, #4ECDC4, #6FD98A);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 8s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.bg-cosmic { background: var(--gradient-cosmic); }
+.bg-nebula { background: var(--gradient-nebula); }
+
+.noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+}
+
+.mask-gradient {
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* 5️⃣ Tailwind base overrides */
+@layer base {
+  body {
+    @apply bg-obsidian text-paper font-sans;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-white tracking-tight;
+    font-family: 'DM Serif Display', Georgia, serif;
+  }
+}
+
+/* MOBILE-ONLY IMPROVEMENTS - Desktop unchanged */
+@media (max-width: 640px) {
+  .hero-h1 {
+    font-size: 2.25rem !important;
+    line-height: 1.1;
+    text-align: left;
+  }
+  
+  .hero-desc {
+    font-size: 1rem !important;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 640px) {
+  .slideshow-dots {
+    gap: 0.5rem;
+  }
+  .slideshow-dots .h-1\.5 { height: 0.375rem; }
+  .slideshow-dots .w-8 { width: 2rem; }
+}
+
+@media (max-width: 640px) {
+  .cta-mobile {
+    padding: 1rem 1.5rem !important;
+    min-height: 3rem;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .stats-mobile {
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
+  }
+}
+/* BLOG-SPECIFIC STYLES */
+.prose {
+  color: hsl(var(--paper));
+}
+
+.prose h2 {
+  @apply text-3xl font-serif text-white mt-12 mb-6;
+}
+
+.prose h3 {
+  @apply text-2xl font-serif text-white mt-8 mb-4;
+}
+
+.prose p {
+  @apply text-base text-paper/80 leading-relaxed mb-6;
+}
+
+.prose a {
+  @apply text-sage-mist hover:text-white transition underline;
+}
+
+.prose ul, .prose ol {
+  @apply text-paper/80 mb-6;
+}
+
+.prose li {
+  @apply mb-2;
+}
+
+.prose strong {
+  @apply text-white font-semibold;
+}
+
+.prose code {
+  @apply bg-charcoal/60 text-sage-mist px-2 py-1 rounded text-sm;
+}
+
+.prose img {
+  @apply rounded-xl border border-white/10 my-8;
+}
+
+/* Mobile blog adjustments */
+@media (max-width: 640px) {
+  .prose {
+    @apply text-sm;
+  }
+  
+  .prose h2 {
+    @apply text-2xl;
+  }
+  
+  .prose h3 {
+    @apply text-xl;
+  }
+}
+
