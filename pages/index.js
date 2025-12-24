@@ -8,6 +8,7 @@ import { LangContext } from './_app';
 import DATA from '../lib/data';
 import Link from 'next/link';
 
+
 // Marquee Component
 const Marquee = ({ title, items }) => (
   <div className="flex items-center gap-8 overflow-hidden">
@@ -29,6 +30,7 @@ const Marquee = ({ title, items }) => (
   </div>
 );
 
+
 // Image Slideshow Component
 const ImageSlideshow = () => {
   const images = [
@@ -40,7 +42,9 @@ const ImageSlideshow = () => {
     'https://media.licdn.com/dms/image/v2/D4E22AQGjdHz9U4TR5g/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1719130283825?e=1767830400&v=beta&t=n0KRFvlO9ijgUO0tjuEk4Zd0zQp-8PtqBjZLMb3TA4Q',
   ];
 
+
   const [current, setCurrent] = useState(0);
+
 
   useEffect(() => {
     const timer = setInterval(
@@ -49,6 +53,7 @@ const ImageSlideshow = () => {
     );
     return () => clearInterval(timer);
   }, [images.length]);
+
 
   return (
     <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-charcoal/30 shadow-xl">
@@ -77,20 +82,24 @@ const ImageSlideshow = () => {
   );
 };
 
+
 export default function Home() {
   const motionProps = useInViewMotion();
   const { lang } = useContext(LangContext);
+
 
   const elegantVariants = {
     initial: { opacity: 0, y: -25, filter: 'blur(4px)' },
     animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
   };
 
+
   const elegantTransition = (delay) => ({
     duration: 2.6,
     delay,
     ease: [0.25, 0.1, 0.25, 1],
   });
+
 
   return (
     <main className="bg-obsidian min-h-screen text-paper selection:bg-oxford-green selection:text-white">
@@ -100,11 +109,13 @@ export default function Home() {
         <Starfield />
         <NoiseOverlay />
 
+
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-obsidian/90 via-obsidian/70 to-obsidian/95" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(184,212,200,0.04),transparent_60%)]" />
 
+
         <Container className="relative z-10 grid min-h-[90vh] grid-cols-1 items-center gap-16 py-20 md:grid-cols-2 lg:gap-20">
-          <div className="space-y-8">
+          <div className="space-y-10">
             {/* Tag */}
             <motion.div
               variants={elegantVariants}
@@ -115,124 +126,167 @@ export default function Home() {
             >
               <Tag>
                 {lang === 'np'
-                  ? 'Independent • Neurodivergent-led • Global South Equity'
-                  : 'Independent • Neurodivergent-led • Global South Equity'}
+                  ? 'Independent • Global South Equity'
+                  : 'Independent • Global South Equity'}
               </Tag>
             </motion.div>
 
-            {/* Heading */}
+
+            {/* Heading - Smaller, More Refined */}
             <motion.h1
               variants={elegantVariants}
               initial="initial"
               animate="animate"
               transition={elegantTransition(0.7)}
-              className="hero-h1 text-5xl font-serif leading-[1.2] tracking-tight text-gradient-hero md:text-6xl lg:text-7xl pb-2"
+              className="text-4xl font-serif leading-[1.15] tracking-tight text-white md:text-5xl lg:text-6xl"
             >
               {lang === 'np' ? (
                 <>
-                  <span className="hero-bmuco">BMUCO</span> — विज्ञान, अनुसन्धान, शिक्षा र जलवायु कार्यको लागि एक वैश्विक केन्द्र
+                  <span className="relative inline-block">
+                    <span className="relative z-10">BMUCO</span>
+                    <span className="absolute bottom-1 left-0 h-[2px] w-full bg-gradient-to-r from-sage-mist/60 to-oxford-green/40" />
+                  </span>{' '}
+                  — विज्ञान, अनुसन्धान, शिक्षा र जलवायु कार्यको लागि एक वैश्विक केन्द्र
                 </>
               ) : (
                 <>
-                  <span className="hero-bmuco">BMUCO</span> — Building the future of science with equity
+                  <span className="relative inline-block">
+                    <span className="relative z-10">BMUCO</span>
+                    <span className="absolute bottom-1 left-0 h-[2px] w-full bg-gradient-to-r from-sage-mist/60 to-oxford-green/40" />
+                  </span>{' '}
+                  — Building the infrastructure for science—with equity
                 </>
               )}
             </motion.h1>
 
-            {/* Description */}
-            <motion.p
+
+            {/* Description - Broken into Scannable Chunks */}
+            <motion.div
               variants={elegantVariants}
               initial="initial"
               animate="animate"
               transition={elegantTransition(1.2)}
-              className="hero-desc max-w-xl text-base leading-relaxed text-paper/80 md:text-lg"
+              className="space-y-5 max-w-xl"
             >
-              {lang === 'np'
-                ? 'Since 2017, we connect Nobel laureates, world-leading researchers, and thousands of students across continents — with deep roots in India and Nepal.'
-                : 'Since 2017, we have connected frontier researchers- Nobel laureates, Fields medalists alike with thousands of students from Global South to Europe. We co-host major symposia (Abel 2025, Bonn), represent the youth in UN climate conferences and partner with leading AI labs to prepare the next generation of mathematicians for the future.'}
-            </motion.p>
+              {lang === 'np' ? (
+                <p className="text-base leading-relaxed text-paper/80 md:text-lg">
+                  Since 2017, we connect Nobel laureates, world-leading researchers, and thousands of students across continents — with deep roots in India and Nepal.
+                </p>
+              ) : (
+                <>
+                  {/* First chunk - Foundation */}
+                  <p className="text-base leading-relaxed text-paper/85 md:text-lg">
+                    Since 2017, we've built the infrastructure advancing theoretical sciences across continents—from{' '}
+                    <span className="font-medium text-white">co-hosting one of mathematics' most prestigious symposium (Abel symposium 2025)</span>{' '}
+                    to{' '}
+                    <span className="font-medium text-white">youth representation in UN climate negotiations</span>.
+                  </p>
 
-            {/* Hero abstract graphic */}
-            <motion.div
-              variants={elegantVariants}
-              initial="initial"
-              animate="animate"
-              transition={elegantTransition(1.4)}
-              className="max-w-xl rounded-2xl border border-white/5 bg-charcoal/40 px-4 py-3 md:px-5 md:py-4"
-            >
-              <div className="flex items-center gap-4">
-                <div className="relative h-16 w-32">
-                  <svg viewBox="0 0 240 120" className="h-full w-full" aria-hidden="true">
-                    <defs>
-                      <radialGradient id="heroGlow" cx="50%" cy="50%" r="70%">
-                        <stop offset="0%" stopColor="hsl(150,35%,60%)" stopOpacity="0.8" />
-                        <stop offset="45%" stopColor="hsl(200,55%,55%)" stopOpacity="0.35" />
-                        <stop offset="100%" stopColor="hsl(0,65%,55%)" stopOpacity="0" />
-                      </radialGradient>
-                    </defs>
-                    <circle cx="70" cy="60" r="34" fill="none" stroke="hsla(150,20%,70%,0.45)" strokeWidth="1.1" />
-                    <circle cx="120" cy="60" r="34" fill="none" stroke="hsla(200,30%,68%,0.45)" strokeWidth="1.1" />
-                    <circle cx="170" cy="60" r="34" fill="none" stroke="hsla(0,50%,60%,0.45)" strokeWidth="1.1" />
-                    <circle cx="70" cy="60" r="14" fill="url(#heroGlow)" opacity="0.7" />
-                    <circle cx="120" cy="60" r="14" fill="url(#heroGlow)" opacity="0.7" />
-                    <circle cx="170" cy="60" r="14" fill="url(#heroGlow)" opacity="0.7" />
-                  </svg>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-sage-mist/80">
-                    Education · Climate · Deep Tech
+                  {/* Visual separator */}
+                  <div className="flex items-center gap-3 py-2">
+                    <div className="h-px w-8 bg-sage-mist/30" />
+                    <div className="h-1 w-1 rounded-full bg-sage-mist/50" />
+                    <div className="h-px flex-1 bg-sage-mist/20" />
+                  </div>
+
+                  {/* Second chunk - How we work */}
+                  <p className="text-base leading-relaxed text-paper/75 md:text-[17px]">
+                    Partnerships, research talks and programs, and policy networks connecting students to frontier sciences and utilising deep tech to advance scientific innovation.
                   </p>
-                  <p className="text-xs text-paper/60 leading-relaxed md:text-sm">
-                    Three interlinked pillars shaping BMUCO&apos;s work: theoretical sciences, science‑driven
-                    climate action, and deep tech for public good.
-                  </p>
-                </div>
-              </div>
+                </>
+              )}
             </motion.div>
 
-            {/* CTA Buttons */}
+
+            {/* CTA Buttons - Added */}
             <motion.div
               variants={elegantVariants}
               initial="initial"
               animate="animate"
-              transition={elegantTransition(1.7)}
-              className="flex flex-wrap items-center gap-3"
+              transition={elegantTransition(1.5)}
+              className="flex flex-wrap items-center gap-3 pt-3"
             >
-              <Link href="/programs">
-                <a className="cta-mobile group inline-flex items-center gap-2 rounded-xl bg-oxford-green px-5 py-2.5 text-sm font-semibold text-paper shadow-lg shadow-oxford-green/25 transition-all duration-300 hover:bg-sage-mist hover:text-obsidian hover:-translate-y-0.5">
-                  {lang === 'np' ? 'कार्यक्रम हेर्नुहोस्' : 'Explore programs'}
+              <Link href="/about">
+                <a className="group inline-flex items-center gap-2 rounded-xl bg-oxford-green px-6 py-3 text-sm font-semibold text-paper shadow-lg shadow-oxford-green/20 transition-all duration-300 hover:bg-sage-mist hover:text-obsidian hover:-translate-y-0.5">
+                  Our Approach
                   <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
                 </a>
               </Link>
-              <Link href="/talks">
-                <a className="cta-mobile inline-flex items-center gap-2 rounded-xl border border-sage-mist/25 bg-transparent px-5 py-2.5 text-sm font-semibold text-paper transition-all duration-300 hover:bg-charcoal hover:border-sage-mist/50">
-                  <Play size={16} />
-                  {lang === 'np' ? 'वार्ता हेर्नुहोस्' : 'Watch talks'}
+              <Link href="/programs">
+                <a className="inline-flex items-center gap-2 rounded-xl border border-sage-mist/30 bg-transparent px-6 py-3 text-sm font-semibold text-paper transition-all duration-300 hover:bg-charcoal/50 hover:border-sage-mist/50">
+                  See Our Work
                 </a>
               </Link>
             </motion.div>
 
-            {/* Stats */}
+
+            {/* Stats bar - Compact */}
+            <motion.div
+              variants={elegantVariants}
+              initial="initial"
+              animate="animate"
+              transition={elegantTransition(1.8)}
+              className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-6 text-sm border-t border-white/5"
+            >
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-sage-mist">2017</span>
+                <span className="text-paper/50">Founded</span>
+              </div>
+              <div className="w-px h-4 bg-white/10" />
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-sage-mist">30+</span>
+                <span className="text-paper/50">Institutions</span>
+              </div>
+              <div className="w-px h-4 bg-white/10" />
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-sage-mist">5K+</span>
+                <span className="text-paper/50">Followers</span>
+              </div>
+              <div className="w-px h-4 bg-white/10" />
+              <div className="flex items-center gap-2">
+                <span className="text-paper/50">Germany · Nepal · India · UK</span>
+              </div>
+            </motion.div>
+
+
+            {/* Three Pillars - Compact Visual */}
             <motion.div
               variants={elegantVariants}
               initial="initial"
               animate="animate"
               transition={elegantTransition(2.1)}
-              className="stats-mobile grid grid-cols-3 gap-6 pt-4 md:max-w-lg"
+              className="rounded-xl border border-white/5 bg-charcoal/30 px-5 py-4 backdrop-blur-sm"
             >
-              {DATA.stats.map((s) => (
-                <div
-                  key={s.l}
-                  className="rounded-xl border border-white/5 bg-charcoal/50 p-4 text-center backdrop-blur-sm"
-                >
-                  <p className="text-2xl font-serif font-semibold text-paper md:text-3xl">{s.n}</p>
-                  <p className="mt-1 text-[10px] font-medium uppercase tracking-wider text-sage-mist">
-                    {s.l}
+              <div className="flex items-start gap-4">
+                <div className="relative h-12 w-24 shrink-0">
+                  <svg viewBox="0 0 240 120" className="h-full w-full" aria-hidden="true">
+                    <defs>
+                      <radialGradient id="heroGlow" cx="50%" cy="50%" r="70%">
+                        <stop offset="0%" stopColor="hsl(150,35%,60%)" stopOpacity="0.7" />
+                        <stop offset="45%" stopColor="hsl(200,55%,55%)" stopOpacity="0.3" />
+                        <stop offset="100%" stopColor="hsl(0,65%,55%)" stopOpacity="0" />
+                      </radialGradient>
+                    </defs>
+                    <circle cx="70" cy="60" r="30" fill="none" stroke="hsla(150,20%,70%,0.4)" strokeWidth="1" />
+                    <circle cx="120" cy="60" r="30" fill="none" stroke="hsla(200,30%,68%,0.4)" strokeWidth="1" />
+                    <circle cx="170" cy="60" r="30" fill="none" stroke="hsla(0,50%,60%,0.4)" strokeWidth="1" />
+                    <circle cx="70" cy="60" r="12" fill="url(#heroGlow)" opacity="0.6" />
+                    <circle cx="120" cy="60" r="12" fill="url(#heroGlow)" opacity="0.6" />
+                    <circle cx="170" cy="60" r="12" fill="url(#heroGlow)" opacity="0.6" />
+                  </svg>
+                </div>
+                <div className="space-y-1.5 flex-1">
+                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-sage-mist/80">
+                    Education · Climate · Deep Tech
+                  </p>
+                  <p className="text-xs text-paper/55 leading-relaxed">
+                    Three interlinked pillars shaping BMUCO's work: theoretical sciences, science‑driven climate action, and deep tech for public good.
                   </p>
                 </div>
-              ))}
+              </div>
             </motion.div>
           </div>
+
 
           {/* RIGHT: Nebula + Slideshow */}
           <motion.div
@@ -255,11 +309,13 @@ export default function Home() {
               </div>
             </div>
 
+
             <div className="opacity-90">
               <ImageSlideshow />
             </div>
           </motion.div>
         </Container>
+
 
         {/* Partners Marquee */}
         <motion.div
@@ -273,6 +329,7 @@ export default function Home() {
           </Container>
         </motion.div>
       </section>
+
 
       {/* HIGHLIGHTS SECTION */}
       <section className="border-t border-white/10 py-24 bg-obsidian">
@@ -290,6 +347,7 @@ export default function Home() {
               </p>
               <h2 className="text-4xl font-serif text-white leading-tight">Major collaborations & events</h2>
             </div>
+
 
             <div className="space-y-6">
               {DATA.highlights.map((item, idx) => (
@@ -309,6 +367,7 @@ export default function Home() {
         </Container>
       </section>
 
+
       {/* FEATURED TALKS & UPCOMING */}
       <section className="border-t border-white/10 py-24 bg-charcoal/20">
         <Container>
@@ -326,6 +385,7 @@ export default function Home() {
               Featured talks & upcoming events
             </h2>
           </motion.div>
+
 
           <div className="grid gap-8 lg:grid-cols-3">
             {/* Featured Talk Card 1 */}
@@ -354,6 +414,7 @@ export default function Home() {
               </Link>
             </motion.div>
 
+
             {/* Event Card 2 */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -379,6 +440,7 @@ export default function Home() {
                 </a>
               </Link>
             </motion.div>
+
 
             {/* Program Card 3 */}
             <motion.div
@@ -407,6 +469,7 @@ export default function Home() {
             </motion.div>
           </div>
 
+
           {/* View all link */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -424,6 +487,7 @@ export default function Home() {
           </motion.div>
         </Container>
       </section>
+
 
       {/* BOTTOM CTA */}
       <section className="border-t border-white/10 py-24 bg-obsidian">

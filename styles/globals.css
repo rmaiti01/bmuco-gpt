@@ -36,12 +36,9 @@
 
 /* 4️⃣ Custom utility classes */
 .text-gradient-hero {
-  background-image: var(--gradient-hero-text);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
+  color: hsl(60 18% 94%);  /* This is your --paper color */
 }
+
 
 /* Animated hero brand text - slightly darker, more pronounced */
 /* Animated hero brand text - green-blue gradient matching BMUCO brand */
