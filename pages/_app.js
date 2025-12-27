@@ -1,12 +1,15 @@
 import '../styles/globals.css';
 import { useState, useEffect, createContext } from 'react';
 import { DefaultSeo } from 'next-seo';
+import Head from 'next/head';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import { SocialSidebar } from '../components/SocialSidebar';
 import { MobileSocialBar } from '../components/MobileSocialBar';
 
+
 export const LangContext = createContext();
+
 
 function MyApp({ Component, pageProps }) {
   const [lang, setLang] = useState(() => {
@@ -14,12 +17,22 @@ function MyApp({ Component, pageProps }) {
     return localStorage.getItem('lang') || 'en';
   });
 
+
   useEffect(() => {
     localStorage.setItem('lang', lang);
   }, [lang]);
 
+
   return (
     <>
+      {/* Favicon links */}
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+      </Head>
+
       {/* Global SEO defaults */}
       <DefaultSeo
         titleTemplate="%s | BMUCO — Building science with equity"
@@ -66,6 +79,7 @@ function MyApp({ Component, pageProps }) {
           },
         ]}
       />
+
 
       {/* Structured data for search engines */}
       <script
@@ -115,6 +129,7 @@ function MyApp({ Component, pageProps }) {
         }}
       />
 
+
       <LangContext.Provider value={{ lang, setLang }}>
         {/* Social media sidebars */}
         <SocialSidebar />
@@ -127,5 +142,6 @@ function MyApp({ Component, pageProps }) {
     </>
   );
 }
+
 
 export default MyApp;
