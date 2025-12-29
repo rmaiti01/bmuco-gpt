@@ -7,6 +7,10 @@ import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import { SocialSidebar } from '../components/SocialSidebar';
 import { MobileSocialBar } from '../components/MobileSocialBar';
+import { track } from '@vercel/analytics';  // ← For custom events
+import Script from 'next/script';  // ← For external scripts
+
+
 
 
 export const LangContext = createContext();
@@ -17,6 +21,25 @@ function MyApp({ Component, pageProps }) {
     if (typeof window === 'undefined') return 'en';
     return localStorage.getItem('lang') || 'en';
   });
+
+  useEffect(() => {
+    let maxScroll = 0;
+    const handleScroll = () => {
+      const scrollPercent = Math.round(
+        (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100
+      );
+      if (scrollPercent > maxScroll) {
+        maxScroll = scrollPercent;
+        if ([25, 50, 75, 100].includes(maxScroll)) {
+          console.log(`📊 Scrolled: ${maxScroll}%`);
+          track('scroll_depth', { depth: maxScroll });  // ← NOW IT SENDS TO VERCEL!
+        }
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
 
   useEffect(() => {
