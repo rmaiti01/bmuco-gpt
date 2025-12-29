@@ -2,6 +2,7 @@ import '../styles/globals.css';
 import { useState, useEffect, createContext } from 'react';
 import { DefaultSeo } from 'next-seo';
 import Head from 'next/head';
+import { Analytics } from '@vercel/analytics/react';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import { SocialSidebar } from '../components/SocialSidebar';
@@ -80,7 +81,6 @@ function MyApp({ Component, pageProps }) {
         ]}
       />
 
-
       {/* Structured data for search engines */}
       <script
         type="application/ld+json"
@@ -129,7 +129,6 @@ function MyApp({ Component, pageProps }) {
         }}
       />
 
-
       <LangContext.Provider value={{ lang, setLang }}>
         {/* Social media sidebars */}
         <SocialSidebar />
@@ -138,6 +137,7 @@ function MyApp({ Component, pageProps }) {
         <Nav />
         <Component {...pageProps} />
         <Footer />
+        <Analytics />
       </LangContext.Provider>
     </>
   );
