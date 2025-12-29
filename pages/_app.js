@@ -104,6 +104,12 @@ function MyApp({ Component, pageProps }) {
         ]}
       />
 
+<Script
+  strategy="afterInteractive"
+  data-website-id="YOUR-WEBSITE-ID-FROM-UMAMI"
+  src="https://umami-production-5c2e.up.railway.app/script.js"
+/>
+
       {/* Structured data for search engines */}
       <script
         type="application/ld+json"
