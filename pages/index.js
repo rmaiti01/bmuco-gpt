@@ -37,14 +37,12 @@ const ImageSlideshow = () => {
     'https://static.wixstatic.com/media/f25f88_9176800854b044728395f13ed2e2b097~mv2.jpg',
     'https://static.wixstatic.com/media/02ca48_df92f8f1897746bcb9f15e536ea94a97~mv2.jpg',
     'https://static.wixstatic.com/media/3799c9_a9074ea36e4348e5904bcdce5d1bd97e~mv2.png',
-    'https://scontent-dus1-1.xx.fbcdn.net/v/t39.30808-6/489956213_9771256502931040_1327026192259489543_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=127cfc&_nc_ohc=4KPflz9feIoQ7kNvwEb_9-0&_nc_oc=AdmW4aqbAYvxqX23YX1rCQ5jGkmgtSQ5RSYMH1dvgVRebsKLnq5qSaqzkUVVYOFsFCM&_nc_zt=23&_nc_ht=scontent-dus1-1.xx&_nc_gid=AJtBo60-JWPPgcRoSorkIA&oh=00_AfnUUjc_4Ra-BPp_PW4ozHNl1mgMOTGrioYUgDXejXKxQQ&oe=694F54E4',
-    'https://scontent-dus1-1.xx.fbcdn.net/v/t39.30808-6/469803422_1501226533890735_6596758392813270821_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_ohc=EO79kzfbOogQ7kNvwERE6l2&_nc_oc=Adml_9-jqtNmYV5zsJTJfTxDTrupyW7ZJTxlEKMApOVLUJ-mtEAzJBhE2y5AxMWvcZM&_nc_zt=23&_nc_ht=scontent-dus1-1.xx&_nc_gid=k8zMUMOCOX2hm73Ai5kW_A&oh=00_AflbhcJxbAWPxb2n_InkB5XBGhDN0FGf13RJ5mBEyzQHtw&oe=694F5A71',
+    '/images/slideshow/4.jpg',  // Your local image
+    '/images/slideshow/5.jpg',  // Your local image
     'https://media.licdn.com/dms/image/v2/D4E22AQGjdHz9U4TR5g/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1719130283825?e=1767830400&v=beta&t=n0KRFvlO9ijgUO0tjuEk4Zd0zQp-8PtqBjZLMb3TA4Q',
   ];
 
-
   const [current, setCurrent] = useState(0);
-
 
   useEffect(() => {
     const timer = setInterval(
@@ -53,7 +51,6 @@ const ImageSlideshow = () => {
     );
     return () => clearInterval(timer);
   }, [images.length]);
-
 
   return (
     <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-charcoal/30 shadow-xl">
