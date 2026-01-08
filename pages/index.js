@@ -34,12 +34,13 @@ const Marquee = ({ title, items }) => (
 // Image Slideshow Component
 const ImageSlideshow = () => {
   const images = [
-    'https://static.wixstatic.com/media/f25f88_9176800854b044728395f13ed2e2b097~mv2.jpg',
-    'https://static.wixstatic.com/media/02ca48_df92f8f1897746bcb9f15e536ea94a97~mv2.jpg',
-    'https://static.wixstatic.com/media/3799c9_a9074ea36e4348e5904bcdce5d1bd97e~mv2.png',
-    '/images/slideshow/4.jpg',  // Your local image
-    '/images/slideshow/5.jpg',  // Your local image
-    'https://media.licdn.com/dms/image/v2/D4E22AQGjdHz9U4TR5g/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1719130283825?e=1767830400&v=beta&t=n0KRFvlO9ijgUO0tjuEk4Zd0zQp-8PtqBjZLMb3TA4Q',
+    '/images/slideshow/1.jpg',
+    '/images/slideshow/2.png',
+    '/images/slideshow/3.jpg',
+    '/images/slideshow/4.jpg', 
+    '/images/slideshow/5.jpg',  
+    '/images/slideshow/6.JPG',
+    '/images/slideshow/7.jpeg',
   ];
 
   const [current, setCurrent] = useState(0);
