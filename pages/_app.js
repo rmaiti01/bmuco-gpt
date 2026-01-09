@@ -91,7 +91,7 @@ function MyApp({ Component, pageProps }) {
           },
           {
             name: 'author',
-            content: 'Rajarshi Chatterjee',
+            content: 'Rajarshi Maiti',
           },
           {
             property: 'og:image:width',
@@ -106,7 +106,7 @@ function MyApp({ Component, pageProps }) {
 
 <Script
   strategy="afterInteractive"
-  data-website-id="YOUR-WEBSITE-ID-FROM-UMAMI"
+  data-website-id=""
   src="https://umami-production-5c2e.up.railway.app/script.js"
 />
 
