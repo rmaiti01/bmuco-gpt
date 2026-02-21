@@ -124,8 +124,8 @@ export default function Home() {
             >
               <Tag>
                 {lang === 'np'
-                  ? 'Independent • Global South Equity'
-                  : 'Independent • Global South Equity'}
+                  ? 'Independent • Science Organisation'
+                  : 'Independent • Science Organisation'}
               </Tag>
             </motion.div>
 
@@ -152,7 +152,7 @@ export default function Home() {
                     <span className="relative z-10">BMUCO</span>
                     <span className="absolute bottom-1 left-0 h-[2px] w-full bg-gradient-to-r from-sage-mist/60 to-oxford-green/40" />
                   </span>{' '}
-                  — Building the infrastructure for science—with equity
+                  — BMUCO — Building the ecosystem for the future of theoretical sciences
                 </>
               )}
             </motion.h1>

@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { Container, useInViewMotion } from '../components/Common';
 
 export default function About() {
-  // Slow, elegant variant for hero heading + text
   const heroVariants = {
     initial: { opacity: 0, y: -20, filter: 'blur(4px)' },
     animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
@@ -37,7 +36,7 @@ export default function About() {
               transition={heroTransition(0.3)}
               className="mb-6 text-5xl font-serif text-white leading-tight md:text-6xl"
             >
-              Independent, global, and purpose‑driven
+              Building the ecosystem for the future of theoretical sciences
             </motion.h1>
 
             <motion.p
@@ -47,11 +46,12 @@ export default function About() {
               transition={heroTransition(0.6)}
               className="text-lg text-paper/60 leading-relaxed"
             >
-              Our mission is to democratise access to theoretical science and utilise deep tech to ensure that
-              breakthroughs genuinely drive inclusive innovation and meaningful climate action globally.
+              BMUCO is an independent science organization — a modern think tank advancing
+              mathematics, physics, computer science, and AI through research programs,
+              scientific datasets, and deep tech investment.
             </motion.p>
 
-            {/* Metrics strip – 3 items */}
+            {/* Metrics strip */}
             <motion.div
               variants={heroVariants}
               initial="initial"
@@ -81,7 +81,8 @@ export default function About() {
           </div>
 
           <div className="mx-auto mt-32 max-w-5xl space-y-32">
-            {/* A Brief History – timeline style */}
+
+            {/* A Brief History */}
             <motion.div {...useInViewMotion()} className="border-t border-white/10 pt-16">
               <div className="mb-2 h-1 w-16 bg-sage-mist" />
               <h2 className="mb-6 text-4xl font-serif text-white leading-tight">
@@ -89,31 +90,35 @@ export default function About() {
               </h2>
 
               <div className="relative max-w-3xl">
-                {/* vertical line */}
                 <div className="absolute left-1.5 top-1 bottom-1 w-px bg-white/10" />
                 <div className="space-y-6 pl-6">
                   <div className="relative">
                     <div className="absolute -left-6 top-2 h-2 w-2 rounded-full bg-sage-mist" />
                     <p className="text-base text-paper/70 leading-relaxed">
                       <span className="text-white font-medium">2017 ·</span>{' '}
-                      BMUCO begins as a grassroots effort to bring serious theoretical science into
-                      schools in the Global South that rarely see research‑level mathematics or physics.
+                      BMUCO begins as a grassroots effort to bring serious theoretical science
+                      into schools in the Global South that rarely see research‑level mathematics
+                      or physics.
                     </p>
                   </div>
                   <div className="relative">
                     <div className="absolute -left-6 top-2 h-2 w-2 rounded-full bg-sage-mist/80" />
                     <p className="text-base text-paper/70 leading-relaxed">
-                      It grows into an <span className="text-white">independent, neurodivergent‑led organisation</span>{' '}
-                      partnering with universities and institutes across Europe.
+                      It grows into an{' '}
+                      <span className="text-white">
+                        independent, neurodivergent‑led science organization
+                      </span>{' '}
+                      — running research programs, winter schools, and seminars with Nobel
+                      Laureates, Fields Medalists, and leading researchers across Europe.
                     </p>
                   </div>
                   <div className="relative">
                     <div className="absolute -left-6 top-2 h-2 w-2 rounded-full bg-sage-mist/60" />
                     <p className="text-base text-paper/70 leading-relaxed">
-                      BMUCO co‑hosts major events such as the{' '}
-                      <span className="text-white">Abel Symposium 2025</span> in Bonn and engages
-                      <span className="text-white"> thousands of students</span> in live dialogues
-                      with leading researchers.
+                      Today, BMUCO co‑hosts the{' '}
+                      <span className="text-white">Abel Symposium 2025</span> in Bonn, develops
+                      formal mathematical datasets for AI theorem proving, and builds the research
+                      ecosystem with institutions and industry partners globally.
                     </p>
                   </div>
                 </div>
@@ -133,8 +138,9 @@ export default function About() {
                     Frontier science without gatekeeping
                   </h3>
                   <p className="text-sm text-paper/70 leading-relaxed">
-                    A world where access to Nobel laureates, Fields medalists, and cutting‑edge researchers is
-                    not restricted by geography, money, or background.
+                    Research programs, winter schools, and direct collaborations with Nobel
+                    Laureates and Fields Medalists — built for anyone with the drive to
+                    participate, regardless of institution or geography.
                   </p>
                 </div>
 
@@ -143,8 +149,9 @@ export default function About() {
                     Talent pipelines from overlooked regions
                   </h3>
                   <p className="text-sm text-paper/70 leading-relaxed">
-                    Systematic pathways for students in the Global South and underrepresented communities to move
-                    from curiosity to research, leadership, and entrepreneurship.
+                    Systematic pathways for students in the Global South and underrepresented
+                    communities to move from curiosity to research, leadership, and
+                    entrepreneurship.
                   </p>
                 </div>
 
@@ -153,24 +160,24 @@ export default function About() {
                     Science‑driven climate action
                   </h3>
                   <p className="text-sm text-paper/70 leading-relaxed">
-                    Climate policy and community action grounded in rigorous scientific understanding, with youth
-                    from affected regions present in decision‑making rooms.
+                    Climate policy grounded in rigorous science, with youth from affected regions
+                    present in decision‑making rooms — from UN SB sessions to COP.
                   </p>
                 </div>
 
                 <div className="rounded-lg border-l-2 border-sage-mist/30 bg-charcoal/20 pl-6 pr-4 py-4 transition-all duration-300 hover:border-sage-mist hover:bg-charcoal/40 hover:-translate-y-0.5">
                   <h3 className="mb-3 text-xl font-serif text-white">
-                    Deep‑tech for public good
+                    Deep‑tech built on theoretical science
                   </h3>
                   <p className="text-sm text-paper/70 leading-relaxed">
-                    Using formal methods, AI, and advanced tools to build infrastructures that benefit society
-                    broadly, not just narrow incumbents.
+                    Formal mathematical datasets for AI, quantum computing investment, and deep
+                    tech ventures — built from first principles, not shortcuts.
                   </p>
                 </div>
               </div>
             </motion.div>
 
-            {/* Core Pillars with abstract side graphic */}
+            {/* Core Pillars */}
             <motion.div {...useInViewMotion()} className="border-t border-white/10 pt-16">
               <div className="mb-2 h-1 w-16 bg-sage-mist" />
               <h2 className="mb-12 text-4xl font-serif text-white leading-tight">
@@ -182,49 +189,50 @@ export default function About() {
                 <div className="space-y-12">
                   <div className="border-l-2 border-sage-mist/30 pl-6">
                     <h3 className="mb-3 text-2xl font-serif text-white">
-                      Theoretical sciences & education
+                      Theoretical sciences & research programs
                     </h3>
                     <p className="max-w-3xl text-[17px] text-paper/70 leading-relaxed">
-                      Live dialogues, workshops, and symposia with world‑leading researchers in mathematics,
-                      physics, and related fields — including co‑hosting the{' '}
-                      <span className="text-white">Abel Symposium 2025</span> at the University of Bonn. To date,
-                      we have engaged <span className="text-white">10,000+ students</span> across{' '}
-                      <span className="text-white">30+ institutions</span>. We have also hosted research schools
-                      and mentorship programs in collaboration with UK universities.
+                      Research programs, winter schools, and symposia with world‑leading
+                      mathematicians and physicists — including co‑hosting the{' '}
+                      <span className="text-white">Abel Symposium 2025</span> at the University
+                      of Bonn. To date, we have engaged{' '}
+                      <span className="text-white">10,000+ students</span> across{' '}
+                      <span className="text-white">30+ institutions</span>. Our advisor network
+                      includes Nobel Laureates, Fields Medalists, and active researchers at the
+                      frontier of theoretical science.
                     </p>
                   </div>
 
                   <div className="border-l-2 border-sage-mist/30 pl-6">
-                    {/* tinted green to match left circle */}
                     <h3 className="mb-3 text-2xl font-serif text-[hsl(150,35%,70%)]">
                       Climate science & policy
                     </h3>
                     <p className="max-w-3xl text-[17px] text-paper/70 leading-relaxed">
-                      Connecting scientific insight with climate justice. BMUCO‑affiliated youth delegates have
-                      taken part in UN climate conferences such as <span className="text-white">SB60</span> and{' '}
-                      <span className="text-white">SB62</span>, alongside climate dialogues we organise to ensure
-                      that rigorous science and youth perspectives inform global decisions.
+                      Connecting scientific insight with climate justice. BMUCO‑affiliated youth
+                      delegates have taken part in UN climate conferences such as{' '}
+                      <span className="text-white">SB60</span> and{' '}
+                      <span className="text-white">SB62</span>, alongside climate dialogues we
+                      organise to ensure that rigorous science and youth perspectives inform
+                      global decisions.
                     </p>
                   </div>
 
                   <div className="border-l-2 border-sage-mist/30 pl-6">
-                    {/* tinted red to match right circle */}
                     <h3 className="mb-3 text-2xl font-serif text-[hsl(0,70%,68%)]">
-                      Equitable Deep Tech  
+                      Scientific infrastructure & deep tech
                     </h3>
                     <p className="max-w-3xl text-[17px] text-paper/70 leading-relaxed">
-                      Future planned collaborations with universities and AI‑focused startups to train
-                      future mathematicians on formalism (proof assistants such as Lean) and create verification experts. This pillar builds the AI systems that can reason
-                      about mathematics, verify algorithms, and support high‑stakes domains like{' '}
-                      <span className="text-white">finance</span> and{' '}
-                      <span className="text-white">climate modelling</span>. This also includes investing in future technologies such as quantum computing.
+                      We develop formal mathematical datasets in Lean for AI theorem proving,
+                      partnering with frontier AI organizations to build the training
+                      infrastructure that mathematical AI runs on. This extends into quantum
+                      computing investment and deep tech ventures grounded in theoretical
+                      science — built for public good, not narrow incumbents.
                     </p>
                   </div>
                 </div>
 
-                {/* Abstract visual / narrative card */}
+                {/* Abstract visual card */}
                 <div className="relative hidden lg:block">
-                  {/* glowing gradient background */}
                   <div className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-oxford-green/35 via-cosmic-blue/25 to-sage-mist/30 blur-3xl" />
                   <div className="relative h-full w-full overflow-hidden rounded-3xl border border-white/10 bg-charcoal/70 p-7 flex flex-col justify-between">
                     <div className="mb-6">
@@ -232,9 +240,9 @@ export default function About() {
                         Three interlinked pillars
                       </p>
                       <p className="text-sm md:text-base text-paper/70 leading-relaxed">
-                        Education, climate action, and deep tech are designed to reinforce one another,
-                        creating a continuum from school‑level curiosity to research leadership and policy
-                        impact.
+                        Research programs, scientific infrastructure, and deep tech investment —
+                        designed to reinforce one another, creating a continuum from theoretical
+                        curiosity to real‑world impact.
                       </p>
                     </div>
 
@@ -251,30 +259,9 @@ export default function About() {
                             <stop offset="100%" stopColor="hsl(0,70%,55%)" stopOpacity="0" />
                           </radialGradient>
                         </defs>
-                        <circle
-                          cx="60"
-                          cy="80"
-                          r="46"
-                          fill="none"
-                          stroke="hsla(150,20%,70%,0.55)"
-                          strokeWidth="1.2"
-                        />
-                        <circle
-                          cx="120"
-                          cy="80"
-                          r="46"
-                          fill="none"
-                          stroke="hsla(200,35%,65%,0.55)"
-                          strokeWidth="1.2"
-                        />
-                        <circle
-                          cx="180"
-                          cy="80"
-                          r="46"
-                          fill="none"
-                          stroke="hsla(0,55%,60%,0.55)"
-                          strokeWidth="1.2"
-                        />
+                        <circle cx="60" cy="80" r="46" fill="none" stroke="hsla(150,20%,70%,0.55)" strokeWidth="1.2" />
+                        <circle cx="120" cy="80" r="46" fill="none" stroke="hsla(200,35%,65%,0.55)" strokeWidth="1.2" />
+                        <circle cx="180" cy="80" r="46" fill="none" stroke="hsla(0,55%,60%,0.55)" strokeWidth="1.2" />
                         <circle cx="60" cy="80" r="18" fill="url(#pillarGlow)" opacity="0.7" />
                         <circle cx="120" cy="80" r="18" fill="url(#pillarGlow)" opacity="0.7" />
                         <circle cx="180" cy="80" r="18" fill="url(#pillarGlow)" opacity="0.7" />
@@ -290,6 +277,7 @@ export default function About() {
                 </div>
               </div>
             </motion.div>
+
           </div>
         </Container>
       </section>
