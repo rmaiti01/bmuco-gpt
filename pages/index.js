@@ -152,7 +152,7 @@ export default function Home() {
                     <span className="relative z-10">BMUCO</span>
                     <span className="absolute bottom-1 left-0 h-[2px] w-full bg-gradient-to-r from-sage-mist/60 to-oxford-green/40" />
                   </span>{' '}
-                  — BMUCO — Building the ecosystem for the future of theoretical sciences
+                  — Building the ecosystem for the future of sciences
                 </>
               )}
             </motion.h1>
@@ -230,6 +230,11 @@ export default function Home() {
               </div>
               <div className="w-px h-4 bg-white/10" />
               <div className="flex items-center gap-2">
+                <span className="font-semibold text-sage-mist">2026</span>
+                <span className="text-paper/50">Formalised</span>
+              </div>
+              <div className="w-px h-4 bg-white/10" />
+              <div className="flex items-center gap-2">
                 <span className="font-semibold text-sage-mist">30+</span>
                 <span className="text-paper/50">Institutions</span>
               </div>
@@ -273,10 +278,10 @@ export default function Home() {
                 </div>
                 <div className="space-y-1.5 flex-1">
                   <p className="text-xs font-medium uppercase tracking-[0.2em] text-sage-mist/80">
-                    Deep Tech · Education · Climate
+                    Research · Datasets · Deep Tech
                   </p>
                   <p className="text-xs text-paper/55 leading-relaxed">
-                    Three interlinked pillars: Deep Tech including formalism in mathematics, theoretical science education and science-driven climate action
+                    Three interlinked pillars: theoretical science programs, formal mathematical datasets for AI, and deep tech investment for public good.
                   </p>
                 </div>
               </div>
