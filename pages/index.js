@@ -8,15 +8,14 @@ import { LangContext } from './_app';
 import DATA from '../lib/data';
 import Link from 'next/link';
 
-
 // Marquee Component
 const Marquee = ({ title, items }) => (
-  <div className="flex items-center gap-8 overflow-hidden">
-    <p className="shrink-0 text-xs font-semibold uppercase tracking-widest text-oxford-green">
+  <div className="overflow-hidden py-2 px-4">
+    <p className="text-xs font-medium uppercase tracking-widest text-sage-mist/60 mb-2">
       {title}
     </p>
-    <div className="relative flex-1 overflow-hidden mask-gradient">
-      <div className="flex gap-12 whitespace-nowrap animate-scroll">
+    <div className="flex overflow-hidden">
+      <div className="flex animate-marquee gap-8 whitespace-nowrap">
         {items.concat(items).map((t, i) => (
           <span
             key={i}
@@ -30,15 +29,14 @@ const Marquee = ({ title, items }) => (
   </div>
 );
 
-
 // Image Slideshow Component
 const ImageSlideshow = () => {
   const images = [
     '/images/slideshow/1.jpg',
     '/images/slideshow/2.png',
     '/images/slideshow/3.jpg',
-    '/images/slideshow/4.jpg', 
-    '/images/slideshow/5.jpg',  
+    '/images/slideshow/4.jpg',
+    '/images/slideshow/5.jpg',
     '/images/slideshow/6.JPG',
     '/images/slideshow/7.jpeg',
   ];
@@ -54,7 +52,7 @@ const ImageSlideshow = () => {
   }, [images.length]);
 
   return (
-    <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-charcoal/30 shadow-xl">
+    <div className="relative h-48 w-full overflow-hidden rounded-xl">
       {images.map((img, idx) => (
         <motion.img
           key={idx}
@@ -66,7 +64,7 @@ const ImageSlideshow = () => {
           transition={{ duration: 1, ease: 'easeInOut' }}
         />
       ))}
-      <div className="slideshow-dots absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5">
         {images.map((_, idx) => (
           <div
             key={idx}
@@ -80,17 +78,14 @@ const ImageSlideshow = () => {
   );
 };
 
-
 export default function Home() {
   const motionProps = useInViewMotion();
   const { lang } = useContext(LangContext);
-
 
   const elegantVariants = {
     initial: { opacity: 0, y: -25, filter: 'blur(4px)' },
     animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
   };
-
 
   const elegantTransition = (delay) => ({
     duration: 2.6,
@@ -98,22 +93,18 @@ export default function Home() {
     ease: [0.25, 0.1, 0.25, 1],
   });
 
-
   return (
-    <main className="bg-obsidian min-h-screen text-paper selection:bg-oxford-green selection:text-white">
+    <div>
       {/* HERO SECTION */}
-      <section id="hero" className="relative overflow-hidden">
-        <CosmicBackdrop />
-        <Starfield />
+      <section className="relative min-h-screen overflow-hidden">
         <NoiseOverlay />
+        <Starfield />
+        <CosmicBackdrop />
 
+        <Container className="relative z-10 grid gap-12 py-32 lg:grid-cols-2 lg:items-center">
+          {/* LEFT: Content */}
+          <div className="space-y-8">
 
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-obsidian/90 via-obsidian/70 to-obsidian/95" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(184,212,200,0.04),transparent_60%)]" />
-
-
-        <Container className="relative z-10 grid min-h-[90vh] grid-cols-1 items-center gap-16 py-20 md:grid-cols-2 lg:gap-20">
-          <div className="space-y-10">
             {/* Tag */}
             <motion.div
               variants={elegantVariants}
@@ -124,13 +115,12 @@ export default function Home() {
             >
               <Tag>
                 {lang === 'np'
-                  ? 'Independent • Science Organisation'
-                  : 'Independent • Science Organisation'}
+                  ? 'Independent • Global South Equity'
+                  : 'Independent · Theoretical Science'}
               </Tag>
             </motion.div>
 
-
-            {/* Heading - Smaller, More Refined */}
+            {/* Heading */}
             <motion.h1
               variants={elegantVariants}
               initial="initial"
@@ -140,25 +130,20 @@ export default function Home() {
             >
               {lang === 'np' ? (
                 <>
-                  <span className="relative inline-block">
-                    <span className="relative z-10">BMUCO</span>
-                    <span className="absolute bottom-1 left-0 h-[2px] w-full bg-gradient-to-r from-sage-mist/60 to-oxford-green/40" />
-                  </span>{' '}
+                  <span className="text-sage-mist">BMUCO</span>
+                  {' '}
                   — विज्ञान, अनुसन्धान, शिक्षा र जलवायु कार्यको लागि एक वैश्विक केन्द्र
                 </>
               ) : (
                 <>
-                  <span className="relative inline-block">
-                    <span className="relative z-10">BMUCO</span>
-                    <span className="absolute bottom-1 left-0 h-[2px] w-full bg-gradient-to-r from-sage-mist/60 to-oxford-green/40" />
-                  </span>{' '}
-                  — BMUCO — Building the ecosystem for the future of theoretical sciences
+                  <span className="text-sage-mist">BMUCO</span>
+                  {' '}
+                  — Building the ecosystem for the future of theoretical sciences
                 </>
               )}
             </motion.h1>
 
-
-            {/* Description - Broken into Scannable Chunks */}
+            {/* Description */}
             <motion.div
               variants={elegantVariants}
               initial="initial"
@@ -167,36 +152,38 @@ export default function Home() {
               className="space-y-5 max-w-xl"
             >
               {lang === 'np' ? (
-                <p className="text-base leading-relaxed text-paper/80 md:text-lg">
-                  Since 2017, we connect Nobel laureates, world-leading researchers, and thousands of students across continents — with deep roots in India and Nepal.
+                <p className="text-base text-paper/70 leading-relaxed">
+                  Since 2017, we connect Nobel laureates, world-leading researchers, and thousands
+                  of students across continents — with deep roots in India and Nepal.
                 </p>
               ) : (
                 <>
-                  {/* First chunk - Foundation */}
-                  <p className="text-base leading-relaxed text-paper/85 md:text-lg">
-                    Since 2017, we've built the infrastructure advancing theoretical sciences across continents—from{' '}
-                    <span className="font-medium text-white">co-hosting one of mathematics' most prestigious symposium (Abel symposium 2025)</span>{' '}
-                    to{' '}
-                    <span className="font-medium text-white">youth representation in UN climate negotiations</span>.
+                  {/* First chunk */}
+                  <p className="text-base text-paper/70 leading-relaxed">
+                    Since 2017, we have run research programs and winter schools with Nobel
+                    Laureates and Fields Medalists, co-hosted the{' '}
+                    Abel Symposium 2025, and built partnerships across 30+ institutions on five
+                    continents.
                   </p>
 
                   {/* Visual separator */}
-                  <div className="flex items-center gap-3 py-2">
-                    <div className="h-px w-8 bg-sage-mist/30" />
-                    <div className="h-1 w-1 rounded-full bg-sage-mist/50" />
-                    <div className="h-px flex-1 bg-sage-mist/20" />
+                  <div className="flex items-center gap-2">
+                    <div className="h-px w-6 bg-sage-mist/40" />
+                    <div className="h-1 w-1 rounded-full bg-sage-mist/40" />
+                    <div className="h-px w-6 bg-sage-mist/40" />
                   </div>
 
-                  {/* Second chunk - How we work */}
-                  <p className="text-base leading-relaxed text-paper/75 md:text-[17px]">
-                    Partnerships, research talks and programs, and policy networks connecting students to frontier sciences and utilising deep tech to advance scientific innovation.
+                  {/* Second chunk */}
+                  <p className="text-base text-paper/70 leading-relaxed">
+                    We develop formal mathematical datasets for AI, invest in deep tech, and create
+                    research pathways in mathematics, physics, CS, and AI — outside traditional
+                    academic structures.
                   </p>
                 </>
               )}
             </motion.div>
 
-
-            {/* CTA Buttons - Added */}
+            {/* CTA Buttons */}
             <motion.div
               variants={elegantVariants}
               initial="initial"
@@ -205,20 +192,19 @@ export default function Home() {
               className="flex flex-wrap items-center gap-3 pt-3"
             >
               <Link href="/about">
-                <a className="group inline-flex items-center gap-2 rounded-xl bg-oxford-green px-6 py-3 text-sm font-semibold text-paper shadow-lg shadow-oxford-green/20 transition-all duration-300 hover:bg-sage-mist hover:text-obsidian hover:-translate-y-0.5">
+                <button className="flex items-center gap-2 rounded-full bg-sage-mist px-5 py-2.5 text-sm font-medium text-obsidian transition hover:bg-sage-mist/90">
                   Our Approach
-                  <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-                </a>
+                  <ArrowRight className="h-4 w-4" />
+                </button>
               </Link>
               <Link href="/programs">
-                <a className="inline-flex items-center gap-2 rounded-xl border border-sage-mist/30 bg-transparent px-6 py-3 text-sm font-semibold text-paper transition-all duration-300 hover:bg-charcoal/50 hover:border-sage-mist/50">
+                <button className="rounded-full border border-white/10 px-5 py-2.5 text-sm font-medium text-paper/80 transition hover:border-white/30 hover:text-white">
                   See Our Work
-                </a>
+                </button>
               </Link>
             </motion.div>
 
-
-            {/* Stats bar - Compact */}
+            {/* Stats bar */}
             <motion.div
               variants={elegantVariants}
               initial="initial"
@@ -226,28 +212,27 @@ export default function Home() {
               transition={elegantTransition(1.8)}
               className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-6 text-sm border-t border-white/5"
             >
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-sage-mist">2017</span>
-                <span className="text-paper/50">Founded</span>
+              <div className="flex items-center gap-1.5 text-paper/60">
+                <Calendar className="h-3.5 w-3.5 text-sage-mist/70" />
+                <span className="text-white font-medium">2017</span>
+                <span>Founded</span>
               </div>
-              <div className="w-px h-4 bg-white/10" />
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-sage-mist">30+</span>
-                <span className="text-paper/50">Institutions</span>
+              <div className="flex items-center gap-1.5 text-paper/60">
+                <Users className="h-3.5 w-3.5 text-sage-mist/70" />
+                <span className="text-white font-medium">30+</span>
+                <span>Institutions</span>
               </div>
-              <div className="w-px h-4 bg-white/10" />
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-sage-mist">5K+</span>
-                <span className="text-paper/50">Followers</span>
+              <div className="flex items-center gap-1.5 text-paper/60">
+                <Award className="h-3.5 w-3.5 text-sage-mist/70" />
+                <span className="text-white font-medium">5K+</span>
+                <span>Community</span>
               </div>
-              <div className="w-px h-4 bg-white/10" />
-              <div className="flex items-center gap-2">
-                <span className="text-paper/50">Germany · Nepal · India · UK</span>
+              <div className="text-paper/40">
+                Germany · Nepal · India · UK
               </div>
             </motion.div>
 
-
-            {/* Three Pillars - Compact Visual */}
+            {/* Three Pillars card */}
             <motion.div
               variants={elegantVariants}
               initial="initial"
@@ -256,35 +241,23 @@ export default function Home() {
               className="rounded-xl border border-white/5 bg-charcoal/30 px-5 py-4 backdrop-blur-sm"
             >
               <div className="flex items-start gap-4">
-                <div className="relative h-12 w-24 shrink-0">
-                  <svg viewBox="0 0 240 120" className="h-full w-full" aria-hidden="true">
-                    <defs>
-                      <radialGradient id="heroGlow" cx="50%" cy="50%" r="70%">
-                        <stop offset="0%" stopColor="hsl(150,35%,60%)" stopOpacity="0.7" />
-                        <stop offset="45%" stopColor="hsl(200,55%,55%)" stopOpacity="0.3" />
-                        <stop offset="100%" stopColor="hsl(0,65%,55%)" stopOpacity="0" />
-                      </radialGradient>
-                    </defs>
-                    <circle cx="70" cy="60" r="30" fill="none" stroke="hsla(150,20%,70%,0.4)" strokeWidth="1" />
-                    <circle cx="120" cy="60" r="30" fill="none" stroke="hsla(200,30%,68%,0.4)" strokeWidth="1" />
-                    <circle cx="170" cy="60" r="30" fill="none" stroke="hsla(0,50%,60%,0.4)" strokeWidth="1" />
-                    <circle cx="70" cy="60" r="12" fill="url(#heroGlow)" opacity="0.6" />
-                    <circle cx="120" cy="60" r="12" fill="url(#heroGlow)" opacity="0.6" />
-                    <circle cx="170" cy="60" r="12" fill="url(#heroGlow)" opacity="0.6" />
-                  </svg>
+                <div className="flex items-center gap-1.5 pt-0.5">
+                  <div className="h-2 w-2 rounded-full bg-sage-mist/70" />
+                  <div className="h-2 w-2 rounded-full bg-blue-400/70" />
+                  <div className="h-2 w-2 rounded-full bg-red-400/70" />
                 </div>
-                <div className="space-y-1.5 flex-1">
-                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-sage-mist/80">
-                    Education · Climate · Deep Tech
+                <div>
+                  <p className="text-sm font-medium text-white">
+                    Research · Datasets · Deep Tech
                   </p>
-                  <p className="text-xs text-paper/55 leading-relaxed">
-                    Three interlinked pillars shaping BMUCO's work: theoretical sciences, science‑driven climate action, and deep tech for public good.
+                  <p className="mt-1 text-xs text-paper/50 leading-relaxed">
+                    Three interlinked pillars: theoretical science programs, formal mathematical
+                    datasets for AI, and deep tech investment for public good.
                   </p>
                 </div>
               </div>
             </motion.div>
           </div>
-
 
           {/* RIGHT: Nebula + Slideshow */}
           <motion.div
@@ -293,27 +266,17 @@ export default function Home() {
             transition={{ duration: 2.0, delay: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
             className="space-y-6"
           >
-            <div className="relative">
-              <div className="absolute -inset-5 rounded-3xl bg-gradient-to-br from-oxford-green/15 via-transparent to-cosmic-blue/8 blur-3xl" />
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-white/10 bg-charcoal/40 p-3 shadow-2xl backdrop-blur-md md:aspect-[5/4]">
-                <div className="relative h-full w-full overflow-hidden rounded-2xl">
-                  <img
-                    src="/images/hero-design.png"
-                    alt="BMUCO Earth from orbit"
-                    className="h-full w-full object-cover opacity-60 transition-all duration-700 hover:opacity-80"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-tr from-obsidian/85 via-obsidian/30 to-transparent" />
-                </div>
-              </div>
+            <div className="relative overflow-hidden rounded-2xl border border-white/5">
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-obsidian/60" />
+              <motion.img
+                src="/images/hero-design.png"
+                alt="BMUCO Earth from orbit"
+                className="h-full w-full object-cover opacity-60 transition-all duration-700 hover:opacity-80"
+              />
             </div>
-
-
-            <div className="opacity-90">
-              <ImageSlideshow />
-            </div>
+            <ImageSlideshow />
           </motion.div>
         </Container>
-
 
         {/* Partners Marquee */}
         <motion.div
@@ -323,14 +286,16 @@ export default function Home() {
           className="relative z-10 border-t border-b border-white/5 bg-obsidian/90 py-3 backdrop-blur-sm"
         >
           <Container>
-            <Marquee title="PARTNERS & FRIENDS" items={DATA.partners} />
+            <Marquee
+              title={DATA.marquee?.title}
+              items={DATA.marquee?.items ?? DATA.partners ?? []}
+            />
           </Container>
         </motion.div>
       </section>
 
-
       {/* HIGHLIGHTS SECTION */}
-      <section className="border-t border-white/10 py-24 bg-obsidian">
+      <section className="py-24">
         <Container>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -340,14 +305,13 @@ export default function Home() {
             className="mx-auto max-w-5xl"
           >
             <div className="mb-12">
-              <p className="mb-4 text-sm font-medium uppercase tracking-widest text-sage-mist">
-                Recent highlights
-              </p>
-              <h2 className="text-4xl font-serif text-white leading-tight">Major collaborations & events</h2>
+              <Tag>Recent highlights</Tag>
+              <h2 className="mt-3 text-3xl font-serif text-white">
+                Major collaborations & events
+              </h2>
             </div>
 
-
-            <div className="space-y-6">
+            <div className="grid gap-6 md:grid-cols-2">
               {DATA.highlights.map((item, idx) => (
                 <motion.div
                   key={idx}
@@ -357,7 +321,7 @@ export default function Home() {
                   transition={{ delay: idx * 0.08, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                   className="border-l-2 border-sage-mist/30 pl-6 transition hover:border-sage-mist"
                 >
-                  <p className="text-base font-serif text-paper/80 leading-relaxed">{item}</p>
+                  {item}
                 </motion.div>
               ))}
             </div>
@@ -365,9 +329,8 @@ export default function Home() {
         </Container>
       </section>
 
-
       {/* FEATURED TALKS & UPCOMING */}
-      <section className="border-t border-white/10 py-24 bg-charcoal/20">
+      <section className="py-24 bg-charcoal/20">
         <Container>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -376,16 +339,13 @@ export default function Home() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="mb-16 text-center"
           >
-            <p className="mb-4 text-sm font-medium uppercase tracking-widest text-sage-mist">
-              What's happening
-            </p>
-            <h2 className="text-4xl font-serif text-white leading-tight">
+            <Tag>What's happening</Tag>
+            <h2 className="mt-3 text-3xl font-serif text-white">
               Featured talks & upcoming events
             </h2>
           </motion.div>
 
-
-          <div className="grid gap-8 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-3">
             {/* Featured Talk Card 1 */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -395,23 +355,23 @@ export default function Home() {
               className="group relative overflow-hidden rounded-2xl border border-white/10 bg-obsidian/60 p-6 backdrop-blur-sm transition hover:border-sage-mist/50"
             >
               <div className="mb-4 flex items-center gap-2">
-                <Award className="text-sage-mist" size={20} />
-                <span className="text-xs font-medium uppercase tracking-wider text-sage-mist">
+                <Play className="h-4 w-4 text-sage-mist" />
+                <span className="text-xs font-medium uppercase tracking-widest text-sage-mist">
                   Fields Medal
                 </span>
               </div>
-              <h3 className="mb-3 text-2xl font-serif text-white">Maryna Viazovska</h3>
-              <p className="mb-4 text-sm text-paper/70 leading-relaxed">
-                Interview with Fields medalist on sphere packing, modular forms, and the future of pure
-                mathematics.
+              <h3 className="mb-2 text-xl font-serif text-white">Maryna Viazovska</h3>
+              <p className="mb-4 text-sm text-paper/60 leading-relaxed">
+                Interview with Fields medalist on sphere packing, modular forms, and the future
+                of pure mathematics.
               </p>
-              <Link href="/talks">
-                <a className="inline-flex items-center gap-2 text-sm font-medium text-sage-mist transition group-hover:gap-3">
-                  Watch interview <ArrowRight size={16} />
-                </a>
+              <Link
+                href="/talks"
+                className="flex items-center gap-1 text-sm text-sage-mist hover:underline"
+              >
+                Watch interview <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </motion.div>
-
 
             {/* Event Card 2 */}
             <motion.div
@@ -422,23 +382,23 @@ export default function Home() {
               className="group relative overflow-hidden rounded-2xl border border-white/10 bg-obsidian/60 p-6 backdrop-blur-sm transition hover:border-sage-mist/50"
             >
               <div className="mb-4 flex items-center gap-2">
-                <Calendar className="text-sage-mist" size={20} />
-                <span className="text-xs font-medium uppercase tracking-wider text-sage-mist">
+                <Calendar className="h-4 w-4 text-sage-mist" />
+                <span className="text-xs font-medium uppercase tracking-widest text-sage-mist">
                   June 2025
                 </span>
               </div>
-              <h3 className="mb-3 text-2xl font-serif text-white">Abel Symposium</h3>
-              <p className="mb-4 text-sm text-paper/70 leading-relaxed">
-                Co-hosting the Abel Symposium 2025 in Bonn with Hausdorff Center — connecting top
-                mathematicians globally.
+              <h3 className="mb-2 text-xl font-serif text-white">Abel Symposium</h3>
+              <p className="mb-4 text-sm text-paper/60 leading-relaxed">
+                Co-hosting the Abel Symposium 2025 in Bonn with Hausdorff Center — connecting
+                top mathematicians globally.
               </p>
-              <Link href="/programs">
-                <a className="inline-flex items-center gap-2 text-sm font-medium text-sage-mist transition group-hover:gap-3">
-                  Learn more <ArrowRight size={16} />
-                </a>
+              <Link
+                href="/programs"
+                className="flex items-center gap-1 text-sm text-sage-mist hover:underline"
+              >
+                Learn more <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </motion.div>
-
 
             {/* Program Card 3 */}
             <motion.div
@@ -449,24 +409,24 @@ export default function Home() {
               className="group relative overflow-hidden rounded-2xl border border-white/10 bg-obsidian/60 p-6 backdrop-blur-sm transition hover:border-sage-mist/50"
             >
               <div className="mb-4 flex items-center gap-2">
-                <Users className="text-sage-mist" size={20} />
-                <span className="text-xs font-medium uppercase tracking-wider text-sage-mist">
+                <Award className="h-4 w-4 text-sage-mist" />
+                <span className="text-xs font-medium uppercase tracking-widest text-sage-mist">
                   Climate Action
                 </span>
               </div>
-              <h3 className="mb-3 text-2xl font-serif text-white">Youth at COP</h3>
-              <p className="mb-4 text-sm text-paper/70 leading-relaxed">
-                Representing young voices at UN climate conferences — from COP to SB sessions with
-                science-driven policy.
+              <h3 className="mb-2 text-xl font-serif text-white">Youth at COP</h3>
+              <p className="mb-4 text-sm text-paper/60 leading-relaxed">
+                Representing young voices at UN climate conferences — from COP to SB sessions
+                with science-driven policy.
               </p>
-              <Link href="/programs">
-                <a className="inline-flex items-center gap-2 text-sm font-medium text-sage-mist transition group-hover:gap-3">
-                  View programs <ArrowRight size={16} />
-                </a>
+              <Link
+                href="/programs"
+                className="flex items-center gap-1 text-sm text-sage-mist hover:underline"
+              >
+                View programs <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </motion.div>
           </div>
-
 
           {/* View all link */}
           <motion.div
@@ -476,19 +436,19 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="mt-12 text-center"
           >
-            <Link href="/programs">
-              <a className="inline-flex items-center gap-2 rounded-xl border border-sage-mist/30 px-6 py-3 text-sm font-semibold text-white transition hover:border-sage-mist hover:bg-sage-mist/5">
-                Explore all programs & talks
-                <ArrowRight size={16} />
-              </a>
+            <Link
+              href="/programs"
+              className="inline-flex items-center gap-2 text-sm text-paper/60 hover:text-sage-mist transition-colors"
+            >
+              Explore all programs & talks
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </motion.div>
         </Container>
       </section>
 
-
       {/* BOTTOM CTA */}
-      <section className="border-t border-white/10 py-24 bg-obsidian">
+      <section className="py-24">
         <Container>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -497,27 +457,28 @@ export default function Home() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="mx-auto max-w-3xl text-center"
           >
-            <h2 className="mb-4 text-4xl font-serif text-white leading-tight">Join the mission</h2>
-            <p className="mb-8 text-lg text-paper/70 leading-relaxed">
-              Whether you're a student, researcher, institution, or supporter — there are many ways
-              to contribute to democratising science.
+            <h2 className="mb-4 text-3xl font-serif text-white">Join the ecosystem</h2>
+            <p className="mb-8 text-paper/60 leading-relaxed">
+              Whether you're a researcher, institution, industry partner, or student — there are
+              many ways to build with us.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link href="/join">
-                <a className="inline-flex items-center gap-2 border-b-2 border-sage-mist pb-1 text-base font-medium text-white transition hover:border-white">
-                  Get involved <ArrowRight size={16} />
-                </a>
+            <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
+              <Link href="/get-involved">
+                <button className="flex items-center gap-2 rounded-full bg-sage-mist px-6 py-3 font-medium text-obsidian transition hover:bg-sage-mist/90">
+                  Get involved <ArrowRight className="h-4 w-4" />
+                </button>
               </Link>
-              <span className="text-paper/30">·</span>
-              <Link href="/contact">
-                <a className="inline-flex items-center gap-2 border-b-2 border-transparent pb-1 text-base font-medium text-sage-mist transition hover:border-sage-mist">
-                  Contact us <ArrowRight size={16} />
-                </a>
+              ·
+              <Link
+                href="/contact"
+                className="text-paper/60 hover:text-sage-mist transition-colors"
+              >
+                Contact us
               </Link>
             </div>
           </motion.div>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }
