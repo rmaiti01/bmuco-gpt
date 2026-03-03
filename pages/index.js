@@ -152,7 +152,7 @@ export default function Home() {
                     <span className="relative z-10">BMUCO</span>
                     <span className="absolute bottom-1 left-0 h-[2px] w-full bg-gradient-to-r from-sage-mist/60 to-oxford-green/40" />
                   </span>{' '}
-                  — Building the infrastructure for science—with equity
+                  — BMUCO — Building the ecosystem for the future of theoretical sciences
                 </>
               )}
             </motion.h1>
@@ -174,8 +174,8 @@ export default function Home() {
                 <>
                   {/* First chunk - Foundation */}
                   <p className="text-base leading-relaxed text-paper/85 md:text-lg">
-                    Since 2017, we have run research programs and winter schools with Nobel Laureates and Fields Medalists, co-hosted the{' '}
-                    <span className="font-medium text-white">Abel Symposium 2025</span>, and built partnerships across 30+ institutions on five continents.
+                    Since 2017, we have run programs such as winter schools, research mentorships and talks with Nobel Laureates and Fields Medalists, co-hosted{' '}
+                    <span className="font-medium text-white">one of mathematics' most prestigious symposium (Abel symposium 2025)</span>, and built partnerships with prestigious institutions in Europe and beyond.
                   </p>
 
                   {/* Visual separator */}
@@ -187,7 +187,7 @@ export default function Home() {
 
                   {/* Second chunk - How we work */}
                   <p className="text-base leading-relaxed text-paper/75 md:text-[17px]">
-                    We develop formal mathematical datasets for AI, invest in deep tech, and create research pathways in mathematics, physics, CS, and AI — outside traditional academic structures.
+                    We are developing formal mathematical datasets for AI, investing in deep tech, and creating research pathways in mathematics, physics, CS, and AI — outside traditional academic structures.
                   </p>
                 </>
               )}
@@ -273,10 +273,10 @@ export default function Home() {
                 </div>
                 <div className="space-y-1.5 flex-1">
                   <p className="text-xs font-medium uppercase tracking-[0.2em] text-sage-mist/80">
-                    Research · Datasets · Deep Tech
+                    Deep Tech · Education · Climate
                   </p>
                   <p className="text-xs text-paper/55 leading-relaxed">
-                    Three interlinked pillars: theoretical science programs, formal mathematical datasets for AI, and deep tech investment for public good.
+                    Three interlinked pillars: Deep Tech including formalism in mathematics, theoretical science education and science-driven climate action
                   </p>
                 </div>
               </div>
