@@ -17,23 +17,22 @@ function Circle({ size = 120, top, right, bottom, left }) {
   return <div className="geo-circle" style={{ width: size, height: size, top, right, bottom, left }} />;
 }
 
-/* ── Interactive Pillars Graph (SVG) ── */
+/* ── Interactive Pillars Graph (SVG) — 3 nodes ── */
 function PillarsGraph({ active, setActive }) {
   const nodes = [
-    { id: 0, cx: 200, cy: 70, r: 14 },   // top – Formalisation
-    { id: 1, cx: 330, cy: 240, r: 12 },   // right – Theoretical Science
-    { id: 2, cx: 200, cy: 340, r: 10 },   // bottom – AI Theorem Proving
-    { id: 3, cx: 110, cy: 280, r: 7 },    // accent node
+    { id: 0, cx: 200, cy: 80, label: 'Theoretical Sciences' },
+    { id: 1, cx: 100, cy: 310, label: 'Formalisation' },
+    { id: 2, cx: 300, cy: 310, label: 'Code-Verified AI' },
   ];
 
   const lines = [
-    [0, 1], [1, 2], [0, 3], [3, 2],
+    [0, 1], [1, 2], [0, 2],
   ];
 
   return (
-    <svg viewBox="0 0 400 400" style={{ width: '100%', maxWidth: 340, margin: '0 auto', display: 'block' }}>
+    <svg viewBox="0 0 400 400" style={{ width: '100%', maxWidth: 380, margin: '0 auto', display: 'block' }}>
       {/* Outer circle */}
-      <circle cx="200" cy="200" r="140" fill="none" stroke="rgba(0,0,0,0.06)" strokeWidth="1" />
+      <circle cx="200" cy="200" r="155" fill="none" stroke="rgba(0,0,0,0.05)" strokeWidth="1" />
 
       {/* Lines */}
       {lines.map(([a, b], i) => (
@@ -42,69 +41,56 @@ function PillarsGraph({ active, setActive }) {
           x1={nodes[a].cx} y1={nodes[a].cy}
           x2={nodes[b].cx} y2={nodes[b].cy}
           className={`node-line ${active !== null ? 'active' : ''}`}
-          stroke={active !== null ? '#5CB85C' : 'rgba(0,0,0,0.08)'}
-          strokeWidth="1"
+          stroke={active !== null ? '#5CB85C' : 'rgba(0,0,0,0.1)'}
+          strokeWidth="1.5"
         />
       ))}
 
       {/* Nodes */}
       {nodes.map((n) => {
-        const isActive = active === n.id || (active !== null && n.id === 3);
-        const isMain = n.id <= 2;
-        return isMain ? (
-          <circle
-            key={n.id}
-            cx={n.cx} cy={n.cy} r={n.r}
-            className={`node-dot ${isActive ? 'active' : ''}`}
-            fill={isActive ? '#5CB85C' : n.id === 0 ? '#5CB85C' : '#ccc'}
+        const isActive = active === n.id;
+        const anyActive = active !== null;
+        return (
+          <g key={n.id}
             onMouseEnter={() => setActive(n.id)}
             onMouseLeave={() => setActive(null)}
-          />
-        ) : (
-          <rect
-            key={n.id}
-            x={n.cx - n.r} y={n.cy - n.r}
-            width={n.r * 2} height={n.r * 2}
-            className={`node-dot ${isActive ? 'active' : ''}`}
-            fill={isActive ? '#5CB85C' : '#ddd'}
-            onMouseEnter={() => setActive(active)}
-            onMouseLeave={() => setActive(null)}
-          />
+            style={{ cursor: 'pointer' }}
+          >
+            <circle
+              cx={n.cx} cy={n.cy} r="16"
+              className={`node-dot ${isActive ? 'active' : ''}`}
+              fill={isActive ? '#5CB85C' : anyActive ? '#ddd' : '#ccc'}
+            />
+            {isActive && (
+              <circle
+                cx={n.cx} cy={n.cy} r="24"
+                fill="none"
+                stroke="#5CB85C"
+                strokeWidth="2"
+                opacity="0.4"
+                className="node-glow-ring"
+              />
+            )}
+            <text
+              x={n.cx}
+              y={n.id === 0 ? n.cy - 28 : n.cy + 36}
+              textAnchor="middle"
+              fill={isActive ? '#5CB85C' : '#888'}
+              fontSize="11"
+              fontWeight="600"
+              letterSpacing="0.05em"
+              style={{ textTransform: 'uppercase', fontFamily: 'Inter, sans-serif', transition: 'fill 0.3s ease' }}
+            >
+              {n.label}
+            </text>
+          </g>
         );
       })}
     </svg>
   );
 }
 
-/* ── Pillar card ── */
-function PillarCard({ title, items, description, green, active, onHover, onLeave }) {
-  return (
-    <div
-      className={`pillar-card`}
-      style={{ cursor: 'default' }}
-      onMouseEnter={onHover}
-      onMouseLeave={onLeave}
-    >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-        <span
-          className={`pillar-indicator ${active ? 'active' : ''}`}
-          style={{ background: green ? '#5CB85C' : '#0a0a0a' }}
-        />
-        <span className="section-label" style={{ marginBottom: 0 }}>
-          {title} &nbsp;&rarr;
-        </span>
-      </div>
-      <p style={{ fontSize: '14px', color: '#555', marginBottom: description ? '12px' : 0 }}>
-        {items.join(' \u00B7 ')}
-      </p>
-      {description && (
-        <p style={{ fontSize: '14px', color: '#555', lineHeight: 1.7 }}>
-          {description}
-        </p>
-      )}
-    </div>
-  );
-}
+/* PillarCard removed — no longer needed with new 3-node graph design */
 
 /* ── MAIN PAGE ── */
 export default function Home() {
@@ -176,38 +162,8 @@ export default function Home() {
               Three pillars, one infrastructure
             </h2>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '48px', alignItems: 'center' }}>
-              {/* Left: Formalisation */}
-              <PillarCard
-                title="Formalisation"
-                items={['Lean 4', 'Mathlib', 'Process Traces']}
-                active={activePillar === 0}
-                onHover={() => setActivePillar(0)}
-                onLeave={() => setActivePillar(null)}
-              />
-
-              {/* Center: Graph */}
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
               <PillarsGraph active={activePillar} setActive={setActivePillar} />
-
-              {/* Right: Theoretical Science + AI */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
-                <PillarCard
-                  title="Theoretical Science"
-                  items={['Physics', 'Pure Mathematics', 'Geometry']}
-                  description="Talk series with Nobel Laureates and Fields Medalists. Winter schools in theoretical physics. Research programmes bridging pure mathematics and frontier science — open to anyone with drive, regardless of institution."
-                  green
-                  active={activePillar === 1}
-                  onHover={() => setActivePillar(1)}
-                  onLeave={() => setActivePillar(null)}
-                />
-                <PillarCard
-                  title="AI Theorem Proving"
-                  items={['Automated Reasoning', 'Verification', 'ML']}
-                  active={activePillar === 2}
-                  onHover={() => setActivePillar(2)}
-                  onLeave={() => setActivePillar(null)}
-                />
-              </div>
             </div>
           </div>
         </section>
@@ -220,38 +176,48 @@ export default function Home() {
           <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
             <p className="section-label-white">What We Do</p>
             <h2 className="text-display-md" style={{ color: '#fff', maxWidth: '700px', marginBottom: '1.5rem' }}>
-              Formal Mathematics & AI
+              Deep Tech Backed by Theoretical Science
             </h2>
             <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#aaa', maxWidth: '640px', marginBottom: '2.5rem' }}>
-              We build the datasets and tools that mathematical AI needs. Our work centres on
-              formal mathematical datasets in Lean 4 for AI theorem proving — structured process
-              traces that capture not just correct proofs, but library-quality formalisations. We
-              partner with frontier AI organisations and the Lean/Mathlib community to build
-              training infrastructure for automated reasoning.
+              We are a deep tech organisation rooted in the rigour of theoretical science. Our
+              interests span quantum computing, formal methods, and the mathematical foundations
+              that underpin next-generation technology. At our core, we invest in mathematical
+              formalisation — building the structured datasets and verification tools in Lean 4
+              that enable AI systems to reason with library-quality precision, not just surface-level
+              correctness. We partner with frontier research institutions and the Lean/Mathlib
+              community to build training infrastructure for code-verified AI reasoning.
             </p>
             <Link href="/programs" className="btn-outline-white" style={{ marginBottom: '4rem' }}>
               Explore Our Research
             </Link>
 
             <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '3rem', marginTop: '3rem' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '48px' }}>
+                <div>
+                  <h3 style={{ fontSize: '24px', fontWeight: 800, color: '#fff', marginBottom: '12px' }}>
+                    Quantum Computing
+                  </h3>
+                  <p style={{ fontSize: '15px', lineHeight: 1.7, color: '#aaa' }}>
+                    Exploring the intersection of quantum information science and formal verification —
+                    investing in the mathematical infrastructure that quantum technologies will demand.
+                  </p>
+                </div>
+                <div>
+                  <h3 style={{ fontSize: '24px', fontWeight: 800, color: '#fff', marginBottom: '12px' }}>
+                    Formal Methods
+                  </h3>
+                  <p style={{ fontSize: '15px', lineHeight: 1.7, color: '#aaa' }}>
+                    Developing formal mathematical datasets in Lean 4 and building verification tools
+                    that capture not just correct proofs, but library-quality formalisations.
+                  </p>
+                </div>
                 <div>
                   <h3 style={{ fontSize: '24px', fontWeight: 800, color: '#fff', marginBottom: '12px' }}>
                     Research Programs
                   </h3>
                   <p style={{ fontSize: '15px', lineHeight: 1.7, color: '#aaa' }}>
                     Talk series with Nobel laureates and Fields medalists, winter schools in
-                    theoretical physics, intensive research training, and one-on-one mentorships
-                    — building talent pipelines from overlooked regions into frontier research.
-                  </p>
-                </div>
-                <div>
-                  <h3 style={{ fontSize: '24px', fontWeight: 800, color: '#fff', marginBottom: '12px' }}>
-                    Science-Driven Climate Policy
-                  </h3>
-                  <p style={{ fontSize: '15px', lineHeight: 1.7, color: '#aaa' }}>
-                    Youth delegations at UN climate convenings including SB60 and SB62, bridging
-                    rigorous science with climate justice — grounding policy in evidence.
+                    theoretical physics, and talent pipelines from overlooked regions into frontier research.
                   </p>
                 </div>
               </div>

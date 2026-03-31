@@ -114,13 +114,15 @@ export default function About() {
           <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
             <p className="section-label-white">What We Work Towards</p>
             <h2 className="text-display-md" style={{ color: '#fff', maxWidth: '800px', marginBottom: '1.5rem' }}>
-              Deep Tech Built on Theoretical Science
+              Deep Tech Backed by Theoretical Science
             </h2>
             <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#aaa', maxWidth: '700px', marginBottom: '3rem' }}>
-              Formal mathematical datasets for AI theorem proving, quality-aware formalisation tools,
-              and structured training infrastructure — built from first principles for the Lean/Mathlib
-              ecosystem. We develop the data and tools that mathematical AI needs to reason at library
-              quality, not just correctness.
+              We are a deep tech organisation rooted in the rigour of theoretical science. Our
+              interests span quantum computing, formal methods, and the mathematical foundations
+              that underpin next-generation technology. At our core, we invest in mathematical
+              formalisation — building structured datasets and verification tools in Lean 4 that
+              enable AI systems to reason with library-quality precision, not just surface-level
+              correctness.
             </p>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px' }}>

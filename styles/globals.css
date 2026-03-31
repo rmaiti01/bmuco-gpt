@@ -152,7 +152,7 @@
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee 35s linear infinite;
+  animation: marquee 60s linear infinite;
 }
 
 .marquee-track:hover {
@@ -200,8 +200,8 @@
 }
 
 .btn-outline:hover {
-  background: var(--text-primary);
-  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .btn-outline-light {
@@ -224,8 +224,8 @@
 
 .btn-outline-light:hover {
   border-color: var(--text-primary);
-  background: var(--text-primary);
-  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .btn-outline-white {
@@ -332,6 +332,15 @@
 .node-line.active {
   stroke: var(--green);
   stroke-opacity: 1;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.25; transform-origin: center; r: 24; }
+  50% { opacity: 0.5; r: 28; }
+}
+
+.node-glow-ring {
+  animation: glowPulse 1.5s ease-in-out infinite;
 }
 
 /* ── Pillar card ── */
