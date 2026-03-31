@@ -2,29 +2,41 @@ import { useState } from 'react';
 import { NextSeo } from 'next-seo';
 import DATA from '../lib/data';
 
-const S = {
-  page: { background: '#fff', color: '#0d1216', fontFamily: 'Manrope, sans-serif' },
-  container: { maxWidth: '80rem', margin: '0 auto', padding: '0 1.5rem' },
-  label: { fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#4b5563', marginBottom: '10px' },
-  h1: { fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 800, lineHeight: 1.15, color: '#0d1216', marginBottom: '1.25rem' },
-  body: { fontSize: '15px', lineHeight: 1.75, color: '#4b5563' },
-};
+function Diamond({ size = 40, top, left, right, bottom, green }) {
+  return (
+    <div
+      className={green ? 'geo-diamond geo-float' : 'geo-diamond-outline geo-float-slow'}
+      style={{ width: size, height: size, top, left, right, bottom }}
+    />
+  );
+}
 
 const VideoModal = ({ url, onClose }) => {
   if (!url) return null;
   return (
     <div
+      className="modal-overlay"
       onClick={onClose}
-      style={{ position: 'fixed', inset: 0, zIndex: 50, background: 'rgba(0,0,0,0.85)', display: 'grid', placeItems: 'center', padding: '16px' }}
+      style={{ background: 'rgba(0,0,0,0.9)' }}
     >
       <div onClick={e => e.stopPropagation()} style={{ position: 'relative', width: '100%', maxWidth: '900px' }}>
         <button
           onClick={onClose}
-          style={{ position: 'absolute', top: '-40px', right: 0, background: 'none', border: 'none', color: '#fff', cursor: 'pointer', fontSize: '24px', lineHeight: 1 }}
+          style={{
+            position: 'absolute',
+            top: '-40px',
+            right: 0,
+            background: 'none',
+            border: 'none',
+            color: '#fff',
+            cursor: 'pointer',
+            fontSize: '24px',
+            lineHeight: 1,
+          }}
         >
-          ×
+          &times;
         </button>
-        <div style={{ aspectRatio: '16/9', overflow: 'hidden', borderRadius: '10px' }}>
+        <div style={{ aspectRatio: '16/9', overflow: 'hidden' }}>
           <iframe
             src={url.replace('watch?v=', 'embed/')}
             title="BMUCO video"
@@ -44,40 +56,68 @@ export default function Talks() {
   return (
     <>
       <NextSeo title="Talks" description="Talk series featuring Nobel Laureates, Fields Medalists, and frontier researchers." />
-      <main style={S.page}>
+      <main>
 
-        {/* Hero */}
-        <section style={{ padding: '72px 0 56px', borderBottom: '1px solid #d1d1d1' }}>
-          <div style={S.container}>
-            <p style={S.label}>Talk Series</p>
-            <h1 style={S.h1}>Conversations with world-leading researchers</h1>
-            <p style={{ ...S.body, maxWidth: '600px' }}>
-              High-profile conversations with Nobel Laureates, Fields Medalists, and frontier researchers. Reaching 10,000+ students since 2017.
+        <section className="bg-grid" style={{ position: 'relative', overflow: 'hidden', padding: '80px 0 96px' }}>
+          <Diamond size={40} top="15%" right="10%" />
+
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <p className="section-label">Talk Series</p>
+            <h1 className="text-display-xl" style={{ marginBottom: '1.5rem' }}>
+              Conversations
+            </h1>
+            <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555', maxWidth: '560px' }}>
+              High-profile conversations with Nobel Laureates, Fields Medalists, and frontier
+              researchers. Reaching 10,000+ students since 2017.
             </p>
           </div>
         </section>
 
-        {/* Talks grid */}
-        <section style={{ padding: '64px 0' }}>
-          <div style={S.container}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
+        <section style={{ borderTop: '1px solid #e0e0dc', padding: '96px 0' }}>
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '24px' }}>
               {DATA.talks.map(talk => (
-                <div key={talk.title} style={{ border: '1px solid #d1d1d1', borderRadius: '10px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  <p style={{ fontSize: '15px', fontWeight: 700, color: '#0d1216', lineHeight: 1.4 }}>{talk.title}</p>
-                  <p style={{ fontSize: '12px', color: '#9ca3af' }}>{talk.meta}</p>
-                  <div style={{ display: 'flex', gap: '12px', marginTop: 'auto', paddingTop: '4px' }}>
+                <div
+                  key={talk.title}
+                  style={{
+                    borderTop: '2px solid #0a0a0a',
+                    paddingTop: '20px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '10px',
+                  }}
+                >
+                  <p style={{ fontSize: '16px', fontWeight: 700, color: '#0a0a0a', lineHeight: 1.4 }}>
+                    {talk.title}
+                  </p>
+                  <p style={{ fontSize: '13px', color: '#999' }}>{talk.meta}</p>
+                  <div style={{ display: 'flex', gap: '16px', marginTop: 'auto', paddingTop: '8px' }}>
                     {talk.videoUrl && (
                       <button
                         onClick={() => setActiveVideo(talk.videoUrl)}
-                        style={{ fontSize: '13px', fontWeight: 600, color: '#1856FE', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                        className="hover-underline"
+                        style={{
+                          fontSize: '13px',
+                          fontWeight: 600,
+                          color: '#5CB85C',
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          padding: 0,
+                        }}
                       >
-                        Watch →
+                        Watch &rarr;
                       </button>
                     )}
                     {talk.citationUrl && (
-                      <a href={talk.citationUrl} target="_blank" rel="noopener noreferrer"
-                         style={{ fontSize: '13px', fontWeight: 600, color: '#4b5563', textDecoration: 'none' }}>
-                        Learn more →
+                      <a
+                        href={talk.citationUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover-underline"
+                        style={{ fontSize: '13px', fontWeight: 600, color: '#555', textDecoration: 'none' }}
+                      >
+                        Learn more &rarr;
                       </a>
                     )}
                   </div>

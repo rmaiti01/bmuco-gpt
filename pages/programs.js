@@ -2,131 +2,197 @@ import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import DATA from '../lib/data';
 
-const S = {
-  page: { background: '#fff', color: '#0d1216', fontFamily: 'Manrope, sans-serif' },
-  container: { maxWidth: '80rem', margin: '0 auto', padding: '0 1.5rem' },
-  label: { fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#4b5563', marginBottom: '10px' },
-  h1: { fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 800, lineHeight: 1.15, color: '#0d1216', marginBottom: '1.25rem' },
-  h2: { fontSize: 'clamp(1.35rem, 2.5vw, 1.75rem)', fontWeight: 700, color: '#0d1216', marginBottom: '1rem' },
-  h3: { fontSize: '15px', fontWeight: 700, color: '#0d1216', marginBottom: '8px' },
-  body: { fontSize: '15px', lineHeight: 1.75, color: '#4b5563' },
-  card: { border: '1px solid #d1d1d1', borderRadius: '10px', padding: '24px' },
-};
+function Diamond({ size = 40, top, left, right, bottom, green }) {
+  return (
+    <div
+      className={green ? 'geo-diamond geo-float' : 'geo-diamond-outline geo-float-slow'}
+      style={{ width: size, height: size, top, left, right, bottom }}
+    />
+  );
+}
+
+function Circle({ size = 120, top, right, bottom, left }) {
+  return <div className="geo-circle" style={{ width: size, height: size, top, right, bottom, left }} />;
+}
 
 export default function Programs() {
   return (
     <>
-      <NextSeo title="Research" description="BMUCO's research infrastructure — formal mathematics, AI theorem proving, and equitable science programs." />
-      <main style={S.page}>
+      <NextSeo
+        title="Research"
+        description="BMUCO's research infrastructure — formal mathematics, AI theorem proving, and equitable science programs."
+      />
+      <main>
 
-        {/* Hero */}
-        <section style={{ padding: '72px 0 56px', borderBottom: '1px solid #d1d1d1' }}>
-          <div style={S.container}>
-            <p style={S.label}>Research & Infrastructure</p>
-            <h1 style={S.h1}>Formal Mathematics & AI Theorem Proving</h1>
-            <p style={{ ...S.body, maxWidth: '660px' }}>
-              Mathematical formalisation faces a human capital crisis. Fewer than a few hundred people worldwide can formalise graduate-level mathematics in Lean 4 at library quality. We're building the people, data, and tools to fix that.
+        {/* ══ HERO ══ */}
+        <section className="bg-grid" style={{ position: 'relative', overflow: 'hidden', padding: '80px 0 48px' }}>
+          <Diamond size={60} top="15%" right="15%" />
+          <Diamond size={40} top="40%" right="8%" />
+          <Diamond size={30} bottom="20%" right="20%" />
+          <Circle size={200} top="-60px" right="-60px" />
+
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <h1 className="text-display-xl" style={{ marginBottom: '1.5rem', maxWidth: '1000px' }}>
+              Research &<br />Infrastructure
+            </h1>
+            <p style={{
+              fontSize: '12px',
+              fontWeight: 600,
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              color: '#555',
+            }}>
+              Formal Verification &middot; AI Theorem Proving &middot; Lean 4 Datasets
             </p>
           </div>
         </section>
 
-        {/* Lean 4 Workshop — Core Program */}
-        <section style={{ padding: '64px 0', borderBottom: '1px solid #d1d1d1' }}>
-          <div style={S.container}>
-            <p style={S.label}>Core Research</p>
-            <h2 style={S.h2}>Lean 4 Formalization Workshop</h2>
-            <p style={{ ...S.body, maxWidth: '640px', marginBottom: '2rem' }}>
-              An intensive 10-week training programme launching in 2026 (Bonn + Remote). Takes mathematicians from zero Lean experience to library-quality formalisers — producing the structured process trace datasets that power AI theorem proving. In partnership with World Scientific.
+        {/* ══ CORE RESEARCH ══ */}
+        <section style={{ borderTop: '1px solid #e0e0dc', position: 'relative', overflow: 'hidden', padding: '96px 0' }}>
+          <Diamond size={24} top="8%" left="1%" green />
+
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <p className="section-label-green">Core Research</p>
+            <h2 className="text-display-md" style={{ marginBottom: '1.5rem', maxWidth: '600px' }}>
+              Formal Mathematics & AI Theorem Proving
+            </h2>
+            <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555', maxWidth: '700px' }}>
+              Mathematical formalisation faces a human capital crisis. Fewer than a few hundred people
+              worldwide can formalise graduate-level mathematics in Lean 4 at library quality. The
+              bottleneck is not tooling or compute — it is people who produce formalisations that are
+              maintainable, correctly generalised, and integrable into mathematical libraries.
             </p>
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '12px', fontWeight: 600, padding: '4px 10px', border: '1px solid #d1d1d1', borderRadius: '6px', color: '#4b5563' }}>Launching 2026</span>
-              <span style={{ fontSize: '12px', fontWeight: 600, padding: '4px 10px', border: '1px solid #d1d1d1', borderRadius: '6px', color: '#4b5563' }}>Bonn + Remote</span>
-              <span style={{ fontSize: '12px', fontWeight: 600, padding: '4px 10px', border: '1px solid #d1d1d1', borderRadius: '6px', color: '#4b5563' }}>~20 participants/cohort</span>
-            </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px', marginBottom: '2rem' }}>
-              {[
-                { title: 'People', body: 'Training the next generation of formalisation researchers who can produce Mathlib-quality contributions.' },
-                { title: 'Data', body: 'Every formalisation generates a structured process trace — the training signal for mathematical AI.' },
-                { title: 'Tools', body: 'Building quality-aware formalisation infrastructure for the Lean/Mathlib ecosystem.' },
-              ].map(item => (
-                <div key={item.title} style={S.card}>
-                  <p style={S.h3}>{item.title}.</p>
-                  <p style={{ fontSize: '14px', color: '#4b5563', lineHeight: 1.7 }}>{item.body}</p>
-                </div>
-              ))}
-            </div>
-            <div style={{ borderTop: '1px solid #f3f4f6', paddingTop: '20px' }}>
-              <p style={{ fontSize: '13px', color: '#4b5563', marginBottom: '6px' }}><strong style={{ color: '#0d1216' }}>Scientific Advisor:</strong> Prof. Yang-Hui He</p>
-              <p style={{ fontSize: '13px', color: '#4b5563', marginBottom: '6px' }}><strong style={{ color: '#0d1216' }}>Programme Director:</strong> Rajarshi Maiti</p>
-              <p style={{ fontSize: '13px', color: '#4b5563' }}><strong style={{ color: '#0d1216' }}>AI & ML Lead:</strong> Dr Edward Hirst</p>
+          </div>
+        </section>
+
+        {/* ══ LEAN 4 WORKSHOP CARD ══ */}
+        <section style={{ padding: '0 0 96px' }}>
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <div style={{
+              border: '1px solid #e0e0dc',
+              padding: '48px',
+              position: 'relative',
+              overflow: 'hidden',
+            }}>
+              <Circle size={120} top="-40px" right="-40px" />
+
+              <p className="section-label-green" style={{ marginBottom: '12px' }}>
+                Launching 2026 &middot; Bonn + Remote &middot; In Partnership with World Scientific
+              </p>
+
+              <h3 className="text-display-lg" style={{ marginBottom: '1.5rem', maxWidth: '800px' }}>
+                Lean 4 Formalization Workshop
+              </h3>
+
+              <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555', maxWidth: '700px', marginBottom: '2.5rem' }}>
+                An intensive 10-week training programme that takes mathematicians from zero Lean experience
+                to certified library-quality formalisers who have completed a real Mathlib PR review cycle.
+                The programme addresses three integrated outputs:
+              </p>
+
+              {/* People / Data / Tools columns */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: '32px',
+                marginBottom: '2.5rem',
+              }}>
+                {[
+                  {
+                    icon: '#5CB85C',
+                    title: 'People',
+                    body: 'Training talented mathematicians to produce Mathlib-quality formalisations — directly feeding the upstream pipeline that the broader Lean ecosystem needs. Each cohort trains ~20 participants from Bonn and internationally.',
+                  },
+                  {
+                    icon: '#4CAF50',
+                    title: 'Data',
+                    body: 'Every formalisation generates a structured process trace: the complete record of attempts, errors, corrections, AI interactions, and quality-improvement decisions. A novel data type — no "PRM800K for formal proofs" currently exists.',
+                  },
+                  {
+                    icon: '#45a049',
+                    title: 'Tools',
+                    body: 'A quality-aware formalisation assistant trained on our process trace corpus. Unlike existing autoformalisers that optimise for correctness alone, this system integrates library-quality evaluation into the generation loop.',
+                  },
+                ].map(col => (
+                  <div key={col.title}>
+                    <div style={{
+                      width: '32px',
+                      height: '32px',
+                      border: '1px solid #e0e0dc',
+                      borderRadius: '6px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      marginBottom: '16px',
+                    }}>
+                      <div style={{
+                        width: '10px',
+                        height: '10px',
+                        background: col.icon,
+                        borderRadius: '2px',
+                      }} />
+                    </div>
+                    <h4 style={{ fontSize: '20px', fontWeight: 800, color: '#0a0a0a', marginBottom: '12px' }}>
+                      {col.title}
+                    </h4>
+                    <p style={{ fontSize: '14px', lineHeight: 1.7, color: '#555' }}>{col.body}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Team credits */}
+              <p style={{ fontSize: '14px', color: '#555', marginBottom: '1.5rem' }}>
+                <strong style={{ color: '#0a0a0a' }}>Scientific Advisor:</strong> Prof. Yang-Hui He (London Institute for Mathematical Sciences).{' '}
+                <strong style={{ color: '#0a0a0a' }}>Programme Director:</strong> Rajarshi Maiti (University of Bonn).{' '}
+                <strong style={{ color: '#0a0a0a' }}>AI & ML Lead:</strong> Dr Edward Hirst (University of London / UNICAMP).
+              </p>
+
+              <Link href="/contact" className="btn-outline">Apply</Link>
             </div>
           </div>
         </section>
 
-        {/* Talk Series */}
-        <section style={{ padding: '64px 0', borderBottom: '1px solid #d1d1d1' }}>
-          <div style={S.container}>
-            <p style={S.label}>Programs & Training</p>
-            <h2 style={S.h2}>Talk Series</h2>
-            <p style={{ ...S.body, maxWidth: '640px', marginBottom: '2rem' }}>
-              High-profile conversations with Nobel Laureates, Fields Medalists, and frontier researchers. Reaching 10,000+ students since 2017.
-            </p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
-              {DATA.talks.slice(0, 6).map(talk => (
-                <div key={talk.title} style={{ ...S.card, display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  <p style={{ fontSize: '14px', fontWeight: 600, color: '#0d1216', lineHeight: 1.4 }}>{talk.title}</p>
-                  <p style={{ fontSize: '12px', color: '#9ca3af' }}>{talk.meta}</p>
-                  {talk.videoUrl && (
-                    <a href={talk.videoUrl} target="_blank" rel="noopener noreferrer"
-                       style={{ fontSize: '13px', color: '#1856FE', textDecoration: 'none', fontWeight: 600, marginTop: 'auto' }}>
-                      Watch →
-                    </a>
-                  )}
-                </div>
-              ))}
+        {/* ══ WHY THIS MATTERS ══ */}
+        <section style={{ borderTop: '1px solid #e0e0dc', position: 'relative', overflow: 'hidden', padding: '96px 0' }}>
+          <Diamond size={30} top="10%" left="2%" />
+
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <h2 style={{ fontSize: '28px', fontWeight: 800, color: '#0a0a0a', marginBottom: '1.5rem' }}>
+              Why This Matters
+            </h2>
+            <div style={{ maxWidth: '700px' }}>
+              <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555', marginBottom: '1.5rem' }}>
+                AI-assisted formalisation tools increasingly generate Lean code that compiles but does not
+                meet library standards. The Mathlib community faces a rising tide of AI-generated submissions
+                that require more effort to review than to rewrite — while the review pipeline has over 2,000
+                open pull requests and fewer than 60 active reviewers.
+              </p>
+              <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555' }}>
+                BMUCO addresses both the talent bottleneck and the quality gap. Our training produces the
+                people; our process traces produce the data; and our tools integrate quality evaluation into
+                the generation loop. All outputs are designed to be complementary to existing efforts in the
+                Lean/Mathlib ecosystem.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* Additional Programs */}
-        <section style={{ padding: '64px 0', borderBottom: '1px solid #d1d1d1' }}>
-          <div style={S.container}>
-            <h2 style={S.h2}>Additional Programs</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px', marginTop: '24px' }}>
-              {[
-                { title: 'Winter School on Theoretical Physics', body: 'Intensive online school in QFT supervised by Prof. Neil Lambert (KCL), Dr. Gleb Gribakin (QUB), and Elijah Cavan (Waterloo). Received several hundred applications.' },
-                { title: 'Research Assistant Programme', body: 'Running since 2023. One-on-one mentorship pairing students with PhDs and postdocs for project-based learning and academic guidance.' },
-                { title: 'Mentorship Programs', body: 'Peer cohorts, reading groups, and direct mentorship from leading researchers. Pathways from undergraduate curiosity to graduate research.' },
-                { title: 'Climate Science & Policy', body: 'Youth delegations at UN SB60 and SB62. Pre-COP climate dialogues bridging rigorous science with climate justice.' },
-              ].map(item => (
-                <div key={item.title} style={S.card}>
-                  <p style={S.h3}>{item.title}</p>
-                  <p style={{ fontSize: '14px', color: '#4b5563', lineHeight: 1.7 }}>{item.body}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* ══ CLIMATE SCIENCE (DARK) ══ */}
+        <section className="bg-grid-dark" style={{ position: 'relative', overflow: 'hidden', padding: '96px 0' }}>
+          <div className="geo-diamond-dark geo-float" style={{ width: 50, height: 50, top: '10%', right: '8%' }} />
+          <div className="geo-diamond-dark geo-float-slow" style={{ width: 70, height: 70, bottom: '15%', right: '3%' }} />
 
-        {/* CTA */}
-        <section style={{ padding: '64px 0' }}>
-          <div style={S.container}>
-            <h2 style={S.h2}>Want to get involved?</h2>
-            <p style={{ ...S.body, maxWidth: '520px', marginBottom: '1.5rem' }}>
-              Whether you're a student, researcher, institution, or supporter — there are many ways to join BMUCO's mission.
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <p className="section-label-green">Climate Science & Policy</p>
+            <h2 className="text-display-md" style={{ color: '#fff', maxWidth: '600px', marginBottom: '1.5rem' }}>
+              Science-Driven Climate Action
+            </h2>
+            <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#aaa', maxWidth: '640px' }}>
+              BMUCO-affiliated youth delegates have represented young voices at UN climate conferences
+              including SB60 and SB62, bridging rigorous science with climate justice. Our Climate
+              Dialogues bring together scientists, policymakers, and youth from affected regions in
+              pre-COP engagements — grounding climate action in evidence.
             </p>
-            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              <Link href="/contact">
-                <a style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 20px', background: '#1856FE', color: '#fff', fontSize: '14px', fontWeight: 600, borderRadius: '8px', textDecoration: 'none' }}>
-                  Contact Us
-                </a>
-              </Link>
-              <Link href="/partners">
-                <a style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 20px', background: '#fff', color: '#0d1216', fontSize: '14px', fontWeight: 600, borderRadius: '8px', textDecoration: 'none', border: '1px solid #d1d1d1' }}>
-                  Partner with us
-                </a>
-              </Link>
-            </div>
           </div>
         </section>
 

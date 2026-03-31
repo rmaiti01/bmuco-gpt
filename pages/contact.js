@@ -1,19 +1,14 @@
 import { useState } from 'react';
 import { NextSeo } from 'next-seo';
 
-const S = {
-  page: { background: '#fff', color: '#0d1216', fontFamily: 'Manrope, sans-serif' },
-  container: { maxWidth: '80rem', margin: '0 auto', padding: '0 1.5rem' },
-  label: { fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#4b5563', marginBottom: '10px' },
-  h1: { fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 800, lineHeight: 1.15, color: '#0d1216', marginBottom: '1.25rem' },
-  h2: { fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)', fontWeight: 700, color: '#0d1216', marginBottom: '1rem' },
-  body: { fontSize: '15px', lineHeight: 1.75, color: '#4b5563' },
-  input: {
-    width: '100%', boxSizing: 'border-box', padding: '10px 14px', border: '1px solid #d1d1d1', borderRadius: '8px',
-    fontSize: '14px', color: '#0d1216', background: '#fff', outline: 'none', fontFamily: 'Manrope, sans-serif',
-    transition: 'border-color 0.15s',
-  },
-};
+function Diamond({ size = 40, top, left, right, bottom, green }) {
+  return (
+    <div
+      className={green ? 'geo-diamond geo-float' : 'geo-diamond-outline geo-float-slow'}
+      style={{ width: size, height: size, top, left, right, bottom }}
+    />
+  );
+}
 
 const directInquiries = [
   { title: 'Industry Partners', body: 'Deep-tech collaborations and strategic partnerships', subject: 'Industry%20Partnership%20Inquiry' },
@@ -52,40 +47,56 @@ export default function Contact() {
 
   return (
     <>
-      <NextSeo title="Contact" description="Get in touch with BMUCO — whether you're a researcher, student, partner, or press." />
-      <main style={S.page}>
+      <NextSeo title="Contact" description="Get in touch with BMUCO." />
+      <main>
 
-        {/* Hero */}
-        <section style={{ padding: '72px 0 56px', borderBottom: '1px solid #d1d1d1' }}>
-          <div style={S.container}>
-            <h1 style={S.h1}>Let's talk</h1>
-            <p style={{ ...S.body, maxWidth: '580px' }}>
-              Whether you're an investor, research partner, institution, or ambitious student — we'd love to hear from you.
+        {/* ══ HERO ══ */}
+        <section className="bg-grid" style={{ position: 'relative', overflow: 'hidden', padding: '80px 0 96px' }}>
+          <Diamond size={40} top="20%" right="10%" />
+
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <h1 className="text-display-xl" style={{ marginBottom: '1.5rem' }}>Let's Talk</h1>
+            <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555', maxWidth: '520px' }}>
+              Whether you're an investor, research partner, institution, or ambitious student
+              — we'd love to hear from you.
             </p>
           </div>
         </section>
 
-        {/* Info + Form */}
-        <section style={{ padding: '64px 0', borderBottom: '1px solid #d1d1d1' }}>
-          <div style={S.container}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: '64px', alignItems: 'start' }}>
+        {/* ══ FORM + INFO ══ */}
+        <section style={{ borderTop: '1px solid #e0e0dc', padding: '96px 0' }}>
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '80px', alignItems: 'start' }}>
 
               {/* Left: contact info */}
               <div>
-                <h2 style={S.h2}>Send us a message</h2>
-                <p style={{ ...S.body, marginBottom: '2rem' }}>
-                  Whether you are an investor, research partner, institution, or student — we would love to hear from you.
+                <h2 style={{ fontSize: '24px', fontWeight: 800, color: '#0a0a0a', marginBottom: '1rem' }}>
+                  Send us a message
+                </h2>
+                <p style={{ fontSize: '15px', lineHeight: 1.75, color: '#555', marginBottom: '2.5rem' }}>
+                  Whether you are an investor, research partner, institution, or student
+                  — we would love to hear from you.
                 </p>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                   {[
                     { label: 'General Inquiries', value: 'contact@bmuco.org' },
                     { label: 'Partnerships', value: 'contact@bmuco.org' },
                     { label: 'Based in', value: 'Munich & Bonn, Germany' },
                     { label: 'Status', value: 'Formalizing as a German nonprofit, 2025–26' },
                   ].map(item => (
-                    <div key={item.label} style={{ borderBottom: '1px solid #f3f4f6', paddingBottom: '16px' }}>
-                      <p style={{ fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#9ca3af', marginBottom: '4px' }}>{item.label}</p>
-                      <p style={{ fontSize: '14px', fontWeight: 500, color: '#0d1216' }}>{item.value}</p>
+                    <div key={item.label} style={{ borderBottom: '1px solid #eeeeec', paddingBottom: '16px' }}>
+                      <p style={{
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.1em',
+                        color: '#999',
+                        marginBottom: '4px',
+                      }}>
+                        {item.label}
+                      </p>
+                      <p style={{ fontSize: '15px', fontWeight: 500, color: '#0a0a0a' }}>{item.value}</p>
                     </div>
                   ))}
                 </div>
@@ -93,7 +104,7 @@ export default function Contact() {
 
               {/* Right: form */}
               <div>
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                   <input type="checkbox" name="botcheck" style={{ display: 'none' }} />
 
                   {[
@@ -103,8 +114,19 @@ export default function Contact() {
                     { id: 'subject', label: 'Subject', type: 'text', placeholder: 'How can we help?', required: true },
                   ].map(f => (
                     <div key={f.id}>
-                      <label htmlFor={f.id} style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#0d1216', marginBottom: '6px' }}>
-                        {f.label}{f.required && <span style={{ color: '#1856FE' }}> *</span>}
+                      <label
+                        htmlFor={f.id}
+                        style={{
+                          display: 'block',
+                          fontSize: '11px',
+                          fontWeight: 600,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.08em',
+                          color: '#0a0a0a',
+                          marginBottom: '8px',
+                        }}
+                      >
+                        {f.label}{f.required && <span style={{ color: '#5CB85C' }}> *</span>}
                       </label>
                       <input
                         type={f.type}
@@ -112,16 +134,25 @@ export default function Contact() {
                         name={f.id}
                         required={f.required}
                         placeholder={f.placeholder}
-                        style={S.input}
-                        onFocus={e => e.currentTarget.style.borderColor = '#1856FE'}
-                        onBlur={e => e.currentTarget.style.borderColor = '#d1d1d1'}
+                        className="input-field"
                       />
                     </div>
                   ))}
 
                   <div>
-                    <label htmlFor="message" style={{ display: 'block', fontSize: '13px', fontWeight: 600, color: '#0d1216', marginBottom: '6px' }}>
-                      Message <span style={{ color: '#1856FE' }}>*</span>
+                    <label
+                      htmlFor="message"
+                      style={{
+                        display: 'block',
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.08em',
+                        color: '#0a0a0a',
+                        marginBottom: '8px',
+                      }}
+                    >
+                      Message <span style={{ color: '#5CB85C' }}>*</span>
                     </label>
                     <textarea
                       id="message"
@@ -129,32 +160,31 @@ export default function Contact() {
                       rows={5}
                       required
                       placeholder="Tell us about yourself or your inquiry..."
-                      style={{ ...S.input, resize: 'vertical', lineHeight: 1.6 }}
-                      onFocus={e => e.currentTarget.style.borderColor = '#1856FE'}
-                      onBlur={e => e.currentTarget.style.borderColor = '#d1d1d1'}
+                      className="input-field"
+                      style={{ resize: 'vertical', lineHeight: 1.6 }}
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
+                    className="btn-outline"
                     style={{
-                      padding: '11px 24px', background: '#1856FE', color: '#fff', fontSize: '14px', fontWeight: 600,
-                      borderRadius: '8px', border: 'none', cursor: 'pointer', transition: 'background 0.15s',
-                      opacity: isSubmitting ? 0.6 : 1,
+                      alignSelf: 'flex-start',
+                      opacity: isSubmitting ? 0.5 : 1,
                     }}
-                    onMouseEnter={e => { if (!isSubmitting) e.currentTarget.style.background = '#1449e0'; }}
-                    onMouseLeave={e => e.currentTarget.style.background = '#1856FE'}
                   >
                     {isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>
 
                   {result && (
                     <p style={{
-                      fontSize: '14px', padding: '10px 14px', borderRadius: '8px', border: '1px solid',
-                      borderColor: result.includes('Thank you') ? '#1856FE' : result.includes('Sending') ? '#d1d1d1' : '#f87171',
-                      color: result.includes('Thank you') ? '#1856FE' : result.includes('Sending') ? '#4b5563' : '#dc2626',
-                      background: result.includes('Thank you') ? '#eff4ff' : '#f8f9fa',
+                      fontSize: '14px',
+                      padding: '12px 16px',
+                      border: '1px solid',
+                      borderColor: result.includes('Thank you') ? '#5CB85C' : result.includes('Sending') ? '#e0e0dc' : '#f87171',
+                      color: result.includes('Thank you') ? '#5CB85C' : result.includes('Sending') ? '#555' : '#dc2626',
+                      background: result.includes('Thank you') ? '#e8f5e9' : '#fafaf8',
                     }}>
                       {result}
                     </p>
@@ -165,31 +195,33 @@ export default function Contact() {
           </div>
         </section>
 
-        {/* Direct Inquiries */}
-        <section style={{ padding: '64px 0' }}>
-          <div style={S.container}>
-            <h2 style={S.h2}>Direct Inquiries</h2>
-            <p style={{ ...S.body, marginBottom: '2rem' }}>Reach us directly</p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
+        {/* ══ DIRECT INQUIRIES ══ */}
+        <section style={{ borderTop: '1px solid #e0e0dc', padding: '96px 0' }}>
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <h2 style={{ fontSize: '24px', fontWeight: 800, color: '#0a0a0a', marginBottom: '1rem' }}>
+              Direct Inquiries
+            </h2>
+            <p style={{ fontSize: '15px', color: '#555', marginBottom: '2.5rem' }}>Reach us directly</p>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px' }}>
               {directInquiries.map(item => (
-                <div key={item.title} style={{ border: '1px solid #d1d1d1', borderRadius: '10px', padding: '24px' }}>
-                  <p style={{ fontSize: '15px', fontWeight: 700, color: '#0d1216', marginBottom: '6px' }}>{item.title}</p>
-                  <p style={{ fontSize: '13px', color: '#4b5563', marginBottom: '12px', lineHeight: 1.6 }}>{item.body}</p>
+                <div key={item.title} style={{ borderTop: '2px solid #0a0a0a', paddingTop: '20px' }}>
+                  <p style={{ fontSize: '16px', fontWeight: 700, color: '#0a0a0a', marginBottom: '8px' }}>
+                    {item.title}
+                  </p>
+                  <p style={{ fontSize: '14px', color: '#555', lineHeight: 1.7, marginBottom: '16px' }}>
+                    {item.body}
+                  </p>
                   <a
                     href={`mailto:contact@bmuco.org?subject=${item.subject}`}
-                    style={{ fontSize: '13px', fontWeight: 600, color: '#1856FE', textDecoration: 'none' }}
+                    className="hover-underline"
+                    style={{ fontSize: '13px', fontWeight: 600, color: '#5CB85C', textDecoration: 'none' }}
                   >
-                    contact@bmuco.org →
+                    contact@bmuco.org &rarr;
                   </a>
                 </div>
               ))}
             </div>
-            <p style={{ fontSize: '14px', color: '#9ca3af', marginTop: '24px' }}>
-              For general inquiries:{' '}
-              <a href="mailto:contact@bmuco.org" style={{ color: '#1856FE', textDecoration: 'none', fontWeight: 600 }}>
-                contact@bmuco.org
-              </a>
-            </p>
           </div>
         </section>
 

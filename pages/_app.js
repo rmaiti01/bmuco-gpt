@@ -6,12 +6,7 @@ import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import Script from 'next/script';
 
-
-
-
 function MyApp({ Component, pageProps }) {
-
-
   return (
     <>
       <Head>
@@ -21,25 +16,24 @@ function MyApp({ Component, pageProps }) {
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
       </Head>
 
-      {/* Global SEO defaults */}
       <DefaultSeo
-        titleTemplate="%s | BMUCO — Building science with equity"
-        defaultTitle="BMUCO — Building science with equity"
-        description="Independent, neurodivergent-led science organization. Since 2017, connecting Nobel laureates, Fields medalists, and 10k+ students across Global South ↔ Europe. Co-hosting Abel Symposium 2025."
+        titleTemplate="%s | BMUCO — Formal Mathematics Meets AI"
+        defaultTitle="BMUCO — Formal Mathematics Meets AI"
+        description="We develop formal mathematical datasets in Lean 4 and build AI theorem proving infrastructure — partnering with frontier research institutions to advance the science of automated reasoning."
         canonical="https://bmuco.org"
         openGraph={{
           type: 'website',
           locale: 'en_US',
           url: 'https://bmuco.org',
           site_name: 'BMUCO',
-          title: 'BMUCO — Building science with equity',
-          description: 'Independent science organization connecting frontier researchers with Global South students. Co-hosting Abel Symposium 2025 in Bonn.',
+          title: 'BMUCO — Formal Mathematics Meets AI',
+          description: 'We develop formal mathematical datasets in Lean 4 and build AI theorem proving infrastructure.',
           images: [
             {
               url: 'https://bmuco.org/images/og-image.jpg',
               width: 1200,
               height: 630,
-              alt: 'BMUCO — Independent science organization',
+              alt: 'BMUCO — Formal Mathematics Meets AI',
             },
           ],
         }}
@@ -51,30 +45,21 @@ function MyApp({ Component, pageProps }) {
         additionalMetaTags={[
           {
             name: 'keywords',
-            content: 'BMUCO, Abel Symposium 2025, Maryna Viazovska, Fields Medal, climate science, Global South, mathematics education, neurodivergent science',
+            content: 'BMUCO, Lean 4, formal mathematics, AI theorem proving, Mathlib, automated reasoning, process traces',
           },
           {
             name: 'author',
             content: 'Rajarshi Maiti',
           },
-          {
-            property: 'og:image:width',
-            content: '1200',
-          },
-          {
-            property: 'og:image:height',
-            content: '630',
-          },
         ]}
       />
 
-<Script
-  strategy="afterInteractive"
-  data-website-id=""
-  src="https://umami-production-5c2e.up.railway.app/script.js"
-/>
+      <Script
+        strategy="afterInteractive"
+        data-website-id=""
+        src="https://umami-production-5c2e.up.railway.app/script.js"
+      />
 
-      {/* Structured data for search engines */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -82,42 +67,17 @@ function MyApp({ Component, pageProps }) {
             "@context": "https://schema.org",
             "@type": "EducationalOrganization",
             "name": "BMUCO",
-            "alternateName": "Building Mathematics Understanding and Climate Organization",
             "url": "https://bmuco.org",
-            "description": "Independent, neurodivergent-led science organization connecting frontier researchers with Global South students since 2017.",
-            "founder": {
-              "@type": "Person",
-              "name": "Rajarshi Chatterjee"
-            },
+            "description": "Independent science organization developing formal mathematical datasets in Lean 4 and AI theorem proving infrastructure.",
             "address": {
               "@type": "PostalAddress",
+              "addressLocality": "Bonn",
               "addressCountry": "DE"
             },
-            "event": [
-              {
-                "@type": "Event",
-                "name": "Abel Symposium 2025",
-                "description": "International mathematics symposium co-hosted by BMUCO and Hausdorff Center",
-                "startDate": "2025-06-01",
-                "location": {
-                  "@type": "Place",
-                  "name": "University of Bonn",
-                  "address": {
-                    "@type": "PostalAddress",
-                    "addressLocality": "Bonn",
-                    "addressCountry": "DE"
-                  }
-                }
-              }
-            ],
             "sameAs": [
               "https://twitter.com/bmuco_org",
               "https://linkedin.com/company/bmuco"
             ],
-            "audience": {
-              "@type": "Audience",
-              "audienceType": ["students", "researchers", "mathematicians"]
-            }
           }),
         }}
       />
@@ -129,6 +89,5 @@ function MyApp({ Component, pageProps }) {
     </>
   );
 }
-
 
 export default MyApp;

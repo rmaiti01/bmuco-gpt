@@ -1,117 +1,150 @@
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 
-const S = {
-  page: { background: '#fff', color: '#0d1216', fontFamily: 'Manrope, sans-serif' },
-  container: { maxWidth: '80rem', margin: '0 auto', padding: '0 1.5rem' },
-  label: { fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#4b5563', marginBottom: '10px' },
-  h1: { fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 800, lineHeight: 1.15, color: '#0d1216', marginBottom: '1.25rem' },
-  h2: { fontSize: 'clamp(1.35rem, 2.5vw, 1.75rem)', fontWeight: 700, color: '#0d1216', marginBottom: '1rem' },
-  body: { fontSize: '16px', lineHeight: 1.75, color: '#4b5563' },
-  divider: { border: 'none', borderTop: '1px solid #d1d1d1', margin: '0 0 48px' },
-};
+function Diamond({ size = 40, top, left, right, bottom, green }) {
+  return (
+    <div
+      className={green ? 'geo-diamond geo-float' : 'geo-diamond-outline geo-float-slow'}
+      style={{ width: size, height: size, top, left, right, bottom }}
+    />
+  );
+}
+
+function Circle({ size = 120, top, right, bottom, left }) {
+  return <div className="geo-circle" style={{ width: size, height: size, top, right, bottom, left }} />;
+}
+
+const timeline = [
+  {
+    year: '2017',
+    text: 'BMUCO founded — bringing research-level theoretical science into schools across the Global South.',
+  },
+  {
+    year: '2018–2023',
+    text: 'Grew into an independent, neurodivergent-led science organisation — research programs, winter schools, and talk series with Nobel Laureates and Fields Medalists across Europe. 10,000+ students reached across 30+ institutions.',
+  },
+  {
+    year: '2024',
+    text: 'Launched research assistant programmes in AI for mathematics with Dr Edward Hirst (University of London / UNICAMP). Youth delegates represented BMUCO at UN climate conferences SB60 and SB62.',
+  },
+  {
+    year: '2025–2026',
+    text: 'Co-hosted the Abel Symposium 2025 in Bonn with the Hausdorff Centre for Mathematics. Began developing formal mathematical datasets in Lean 4 for AI theorem proving. Deep tech pivot underway.',
+  },
+];
 
 export default function About() {
   return (
     <>
-      <NextSeo title="About" description="BMUCO is a modern science lab and think tank focused on formal mathematics and AI theorem proving." />
-      <main style={S.page}>
+      <NextSeo
+        title="About"
+        description="BMUCO is a modern science lab and think tank at the intersection of science and AI."
+      />
+      <main>
 
-        {/* Hero */}
-        <section style={{ padding: '72px 0 56px', borderBottom: '1px solid #d1d1d1' }}>
-          <div style={S.container}>
-            <p style={S.label}>Who we are</p>
-            <h1 style={S.h1}>
-              A modern science lab and think tank —<br />
-              at the intersection of science and AI
+        {/* ══ HERO ══ */}
+        <section className="bg-grid" style={{ position: 'relative', overflow: 'hidden', padding: '80px 0 96px' }}>
+          <Diamond size={60} top="10%" right="18%" />
+          <Diamond size={40} top="25%" right="10%" />
+          <Circle size={180} top="-50px" right="-50px" />
+          <Circle size={120} bottom="10%" right="15%" />
+
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <h1 className="text-display-xl" style={{ marginBottom: '2rem', maxWidth: '900px' }}>
+              About BMUCO
             </h1>
-            <p style={{ ...S.body, maxWidth: '640px', marginBottom: '2rem' }}>
-              BMUCO is an independent, neurodivergent-led science organization. We combine rigorous theoretical science with the infrastructure work needed to power the next generation of AI reasoning.
+            <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555', maxWidth: '600px' }}>
+              BMUCO is a modern science lab and think tank combined, at the intersection of science
+              and AI. We build training infrastructure — formal datasets, verification tools, and
+              talent pipelines — that advances the science of automated mathematical reasoning.
             </p>
-            {/* Stats */}
-            <div style={{ display: 'flex', gap: '40px', flexWrap: 'wrap' }}>
-              {[{ n: '2017', l: 'Founded' }, { n: '10k+', l: 'Students reached' }, { n: '30+', l: 'Institutions' }].map(s => (
-                <div key={s.l}>
-                  <p style={{ fontSize: '24px', fontWeight: 800, color: '#0d1216', marginBottom: '2px' }}>{s.n}</p>
-                  <p style={{ fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#4b5563' }}>{s.l}</p>
-                </div>
-              ))}
+          </div>
+        </section>
+
+        {/* ══ TIMELINE ══ */}
+        <section style={{ borderTop: '1px solid #e0e0dc', position: 'relative', overflow: 'hidden', padding: '96px 0' }}>
+          <Diamond size={24} bottom="15%" left="1%" green />
+
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <p className="section-label">Timeline</p>
+            <h2 className="text-display-md" style={{ marginBottom: '3rem', maxWidth: '500px' }}>
+              From grassroots to frontier
+            </h2>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'start' }}>
+              {/* Left: photo */}
+              <div style={{
+                width: '100%',
+                aspectRatio: '4 / 3',
+                overflow: 'hidden',
+                background: '#e8e8e6',
+              }}>
+                <img
+                  src="/images/slideshow/3.jpeg"
+                  alt="BMUCO event"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+
+              {/* Right: timeline entries */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+                {timeline.map((e, i) => (
+                  <div
+                    key={e.year}
+                    style={{
+                      padding: '24px 0',
+                      borderTop: i === 0 ? 'none' : '1px solid #e0e0dc',
+                    }}
+                  >
+                    <p className="section-label-green" style={{ marginBottom: '8px' }}>{e.year}</p>
+                    <p style={{ fontSize: '15px', lineHeight: 1.7, color: '#555' }}>{e.text}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* What we do */}
-        <section style={{ padding: '64px 0', borderBottom: '1px solid #d1d1d1' }}>
-          <div style={S.container}>
-            <p style={S.label}>Our focus</p>
-            <h2 style={S.h2}>What We Work Towards</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginTop: '32px' }}>
+        {/* ══ WHAT WE WORK TOWARDS (DARK) ══ */}
+        <section className="bg-grid-dark" style={{ position: 'relative', overflow: 'hidden', padding: '96px 0' }}>
+          <div className="geo-diamond-dark geo-float" style={{ width: 50, height: 50, top: '5%', right: '8%' }} />
+          <div className="geo-diamond-dark geo-float-slow" style={{ width: 70, height: 70, top: '40%', right: '3%' }} />
+          <div className="geo-diamond-dark" style={{ width: 90, height: 90, bottom: '8%', left: '5%' }} />
+
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <p className="section-label-white">What We Work Towards</p>
+            <h2 className="text-display-md" style={{ color: '#fff', maxWidth: '800px', marginBottom: '1.5rem' }}>
+              Deep Tech Built on Theoretical Science
+            </h2>
+            <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#aaa', maxWidth: '700px', marginBottom: '3rem' }}>
+              Formal mathematical datasets for AI theorem proving, quality-aware formalisation tools,
+              and structured training infrastructure — built from first principles for the Lean/Mathlib
+              ecosystem. We develop the data and tools that mathematical AI needs to reason at library
+              quality, not just correctness.
+            </p>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px' }}>
               {[
                 {
-                  title: 'Formal mathematical datasets for AI',
-                  body: 'Formal mathematical datasets in Lean 4 for AI theorem proving — structured process traces that capture library-quality formalisations and power automated reasoning.'
+                  title: 'Frontier Science Without Gatekeeping',
+                  body: 'Research programs and direct collaborations with Nobel Laureates and Fields Medalists — open to anyone with drive, regardless of institution or geography.',
                 },
                 {
-                  title: 'Frontier science without gatekeeping',
-                  body: 'Research programs, winter schools, and direct collaborations with Nobel Laureates and Fields Medalists — built for anyone with the drive to participate, regardless of institution or geography.'
+                  title: 'Talent Pipelines From Overlooked Regions',
+                  body: 'Systematic pathways for mathematicians in the Global South to move from curiosity to formalisation research, library-quality contribution, and leadership.',
                 },
                 {
-                  title: 'Talent pipelines from overlooked regions',
-                  body: 'Systematic pathways for students in the Global South and underrepresented communities to move from curiosity to research, leadership, and entrepreneurship.'
-                },
-                {
-                  title: 'Science-driven climate action',
-                  body: 'Climate policy grounded in rigorous science, with youth from affected regions present in decision-making rooms — from UN SB sessions to COP.'
+                  title: 'Science-Driven Climate Action',
+                  body: 'Youth delegations at UN climate convenings, bridging rigorous science with climate justice — grounding policy in evidence.',
                 },
               ].map(item => (
-                <div key={item.title} style={{ border: '1px solid #d1d1d1', borderRadius: '10px', padding: '24px' }}>
-                  <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#0d1216', marginBottom: '10px' }}>{item.title}</h3>
-                  <p style={{ fontSize: '14px', color: '#4b5563', lineHeight: 1.7 }}>{item.body}</p>
+                <div key={item.title}>
+                  <h3 style={{ fontSize: '20px', fontWeight: 800, color: '#fff', marginBottom: '12px' }}>
+                    {item.title}
+                  </h3>
+                  <p style={{ fontSize: '15px', lineHeight: 1.7, color: '#aaa' }}>{item.body}</p>
                 </div>
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Timeline */}
-        <section style={{ padding: '64px 0', borderBottom: '1px solid #d1d1d1' }}>
-          <div style={S.container}>
-            <p style={S.label}>History</p>
-            <h2 style={S.h2}>A Brief Timeline</h2>
-            <div style={{ maxWidth: '680px', marginTop: '32px', display: 'flex', flexDirection: 'column', gap: '28px' }}>
-              {[
-                { year: '2017', text: 'Founded as a grassroots effort to bring serious theoretical science into schools in the Global South rarely see research-level mathematics or physics.' },
-                { year: '2018–2023', text: 'Grew into an independent, neurodivergent-led science organization — running research programs, winter schools, and seminars with Nobel Laureates, Fields Medalists, and leading researchers across Europe. Reached 10,000+ students across 30+ institutions.' },
-                { year: '2024', text: 'Launched AI mathematics research assistant programs; youth delegates attended UN climate conferences SB60 and SB62.' },
-                { year: '2025–2026', text: 'Co-hosting Abel Symposium 2025 in Bonn; developing formal mathematical datasets in Lean 4; formalizing as a German nonprofit.' },
-              ].map(e => (
-                <div key={e.year} style={{ display: 'grid', gridTemplateColumns: '96px 1fr', gap: '16px' }}>
-                  <p style={{ fontSize: '13px', fontWeight: 700, color: '#1856FE', paddingTop: '2px' }}>{e.year}</p>
-                  <p style={{ fontSize: '15px', color: '#4b5563', lineHeight: 1.7 }}>{e.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA */}
-        <section style={{ padding: '64px 0' }}>
-          <div style={S.container}>
-            <h2 style={S.h2}>Get Involved</h2>
-            <p style={{ ...S.body, maxWidth: '520px', marginBottom: '1.5rem' }}>
-              Whether you're a researcher, student, institution, or supporter — connect with us to build science that breaks barriers.
-            </p>
-            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              <Link href="/contact">
-                <a style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 20px', background: '#1856FE', color: '#fff', fontSize: '14px', fontWeight: 600, borderRadius: '8px', textDecoration: 'none' }}>
-                  Contact Us
-                </a>
-              </Link>
-              <Link href="/programs">
-                <a style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 20px', background: '#fff', color: '#0d1216', fontSize: '14px', fontWeight: 600, borderRadius: '8px', textDecoration: 'none', border: '1px solid #d1d1d1' }}>
-                  Our Research
-                </a>
-              </Link>
             </div>
           </div>
         </section>

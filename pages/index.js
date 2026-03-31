@@ -1,188 +1,398 @@
+import { useState } from 'react';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
+import DATA from '../lib/data';
 
-const S = {
-  page: { background: '#fff', color: '#0d1216', fontFamily: 'Manrope, sans-serif' },
-  container: { maxWidth: '80rem', margin: '0 auto', padding: '0 1.5rem' },
-  divider: { border: 'none', borderTop: '1px solid #d1d1d1', margin: 0 },
-  label: { fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#4b5563', marginBottom: '10px' },
-  h1: { fontSize: 'clamp(2.25rem, 5vw, 3.5rem)', fontWeight: 800, lineHeight: 1.1, color: '#0d1216', marginBottom: '1.25rem' },
-  h2: { fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 700, color: '#0d1216', marginBottom: '1rem' },
-  body: { fontSize: '16px', lineHeight: 1.7, color: '#4b5563' },
-  btnBlue: { display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 20px', background: '#1856FE', color: '#fff', fontSize: '14px', fontWeight: 600, borderRadius: '8px', textDecoration: 'none', border: 'none', cursor: 'pointer' },
-  btnWhite: { display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 20px', background: '#fff', color: '#0d1216', fontSize: '14px', fontWeight: 600, borderRadius: '8px', textDecoration: 'none', border: '1px solid #d1d1d1', cursor: 'pointer' },
-};
+/* ── Geometric decoration helpers ── */
+function Diamond({ size = 40, top, left, right, bottom, green, className = '' }) {
+  return (
+    <div
+      className={green ? 'geo-diamond geo-float' : 'geo-diamond-outline geo-float-slow'}
+      style={{ width: size, height: size, top, left, right, bottom }}
+    />
+  );
+}
 
+function Circle({ size = 120, top, right, bottom, left }) {
+  return <div className="geo-circle" style={{ width: size, height: size, top, right, bottom, left }} />;
+}
+
+/* ── Interactive Pillars Graph (SVG) ── */
+function PillarsGraph({ active, setActive }) {
+  const nodes = [
+    { id: 0, cx: 200, cy: 70, r: 14 },   // top – Formalisation
+    { id: 1, cx: 330, cy: 240, r: 12 },   // right – Theoretical Science
+    { id: 2, cx: 200, cy: 340, r: 10 },   // bottom – AI Theorem Proving
+    { id: 3, cx: 110, cy: 280, r: 7 },    // accent node
+  ];
+
+  const lines = [
+    [0, 1], [1, 2], [0, 3], [3, 2],
+  ];
+
+  return (
+    <svg viewBox="0 0 400 400" style={{ width: '100%', maxWidth: 340, margin: '0 auto', display: 'block' }}>
+      {/* Outer circle */}
+      <circle cx="200" cy="200" r="140" fill="none" stroke="rgba(0,0,0,0.06)" strokeWidth="1" />
+
+      {/* Lines */}
+      {lines.map(([a, b], i) => (
+        <line
+          key={i}
+          x1={nodes[a].cx} y1={nodes[a].cy}
+          x2={nodes[b].cx} y2={nodes[b].cy}
+          className={`node-line ${active !== null ? 'active' : ''}`}
+          stroke={active !== null ? '#5CB85C' : 'rgba(0,0,0,0.08)'}
+          strokeWidth="1"
+        />
+      ))}
+
+      {/* Nodes */}
+      {nodes.map((n) => {
+        const isActive = active === n.id || (active !== null && n.id === 3);
+        const isMain = n.id <= 2;
+        return isMain ? (
+          <circle
+            key={n.id}
+            cx={n.cx} cy={n.cy} r={n.r}
+            className={`node-dot ${isActive ? 'active' : ''}`}
+            fill={isActive ? '#5CB85C' : n.id === 0 ? '#5CB85C' : '#ccc'}
+            onMouseEnter={() => setActive(n.id)}
+            onMouseLeave={() => setActive(null)}
+          />
+        ) : (
+          <rect
+            key={n.id}
+            x={n.cx - n.r} y={n.cy - n.r}
+            width={n.r * 2} height={n.r * 2}
+            className={`node-dot ${isActive ? 'active' : ''}`}
+            fill={isActive ? '#5CB85C' : '#ddd'}
+            onMouseEnter={() => setActive(active)}
+            onMouseLeave={() => setActive(null)}
+          />
+        );
+      })}
+    </svg>
+  );
+}
+
+/* ── Pillar card ── */
+function PillarCard({ title, items, description, green, active, onHover, onLeave }) {
+  return (
+    <div
+      className={`pillar-card`}
+      style={{ cursor: 'default' }}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+        <span
+          className={`pillar-indicator ${active ? 'active' : ''}`}
+          style={{ background: green ? '#5CB85C' : '#0a0a0a' }}
+        />
+        <span className="section-label" style={{ marginBottom: 0 }}>
+          {title} &nbsp;&rarr;
+        </span>
+      </div>
+      <p style={{ fontSize: '14px', color: '#555', marginBottom: description ? '12px' : 0 }}>
+        {items.join(' \u00B7 ')}
+      </p>
+      {description && (
+        <p style={{ fontSize: '14px', color: '#555', lineHeight: 1.7 }}>
+          {description}
+        </p>
+      )}
+    </div>
+  );
+}
+
+/* ── MAIN PAGE ── */
 export default function Home() {
+  const [activePillar, setActivePillar] = useState(null);
+
   return (
     <>
       <NextSeo
-        title="BMUCO — Formal Mathematics & AI"
+        title="BMUCO — Formal Mathematics Meets AI"
         description="We develop formal mathematical datasets in Lean 4 and build AI theorem proving infrastructure — partnering with frontier research institutions."
       />
-      <main style={S.page}>
+      <main>
 
-        {/* ── HERO ── */}
-        <section style={{ padding: '80px 0 72px', borderBottom: '1px solid #d1d1d1' }}>
-          <div style={S.container}>
-            <div style={{ maxWidth: '720px' }}>
-              <p style={S.label}>Formal Mathematics Meets AI</p>
-              <h1 style={S.h1}>
-                Building the infrastructure for{' '}
-                <span style={{ color: '#1856FE' }}>mathematical AI</span>
-              </h1>
-              <p style={{ ...S.body, maxWidth: '580px', marginBottom: '2rem' }}>
-                We develop formal mathematical datasets in Lean 4 and build AI theorem proving infrastructure — partnering with frontier research institutions to advance the science of automated reasoning.
-              </p>
-              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                <Link href="/programs"><a style={S.btnBlue}>Our Research</a></Link>
-                <Link href="/contact"><a style={S.btnWhite}>Get in Touch</a></Link>
-              </div>
+        {/* ════════════════ HERO ════════════════ */}
+        <section className="bg-grid" style={{ position: 'relative', overflow: 'hidden', padding: '80px 0 100px' }}>
+          <Diamond size={50} top="15%" right="8%" green />
+          <Diamond size={30} bottom="20%" left="2%" green />
+          <Circle size={200} top="-60px" right="-60px" />
+          <Circle size={140} bottom="-40px" right="20%" />
+
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <h1 className="text-display-xl" style={{ marginBottom: '2rem', maxWidth: '1100px' }}>
+              Formal<br />Mathematics<br />
+              <span className="text-green">Meets</span> AI
+            </h1>
+            <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555', maxWidth: '580px', marginBottom: '2.5rem' }}>
+              We develop formal mathematical datasets in Lean 4 and build AI theorem proving
+              infrastructure — partnering with frontier research institutions to advance the
+              science of automated reasoning.
+            </p>
+            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+              <Link href="/programs" className="btn-outline">Our Research</Link>
+              <Link href="/contact" className="btn-outline-light">Get in Touch</Link>
             </div>
           </div>
         </section>
 
-        {/* ── PARTNERS MARQUEE ── */}
-        <section style={{ padding: '20px 0', borderBottom: '1px solid #d1d1d1', overflow: 'hidden' }}>
-          <div style={S.container}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '32px', flexWrap: 'wrap' }}>
-              <p style={{ ...S.label, marginBottom: 0, whiteSpace: 'nowrap', flexShrink: 0 }}>Partners</p>
-              <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap', alignItems: 'center' }}>
-                {['Hausdorff Centre for Mathematics', 'London Institute for Mathematical Sciences', 'EPSRC National Edge AI Hub', "Queen's University Belfast"].map(p => (
-                  <span key={p} style={{ fontSize: '13px', color: '#9ca3af', fontWeight: 500 }}>{p}</span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── HOW IT CONNECTS ── */}
-        <section style={{ padding: '72px 0', borderBottom: '1px solid #d1d1d1' }}>
-          <div style={S.container}>
-            <p style={S.label}>Three pillars, one infrastructure</p>
-            <h2 style={S.h2}>How It Connects</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '24px', marginTop: '32px' }}>
-              {[
-                { title: 'FORMALISATION', items: ['Lean 4', 'Mathlib', 'Process Traces'] },
-                { title: 'THEORETICAL SCIENCE', items: ['Physics', 'Pure Mathematics', 'Geometry'] },
-                { title: 'AI THEOREM PROVING', items: ['Automated Reasoning', 'Verification', 'ML'] },
-              ].map(col => (
-                <div key={col.title} style={{ border: '1px solid #d1d1d1', borderRadius: '10px', padding: '24px' }}>
-                  <p style={{ ...S.label, marginBottom: '16px' }}>{col.title}</p>
-                  {col.items.map(i => (
-                    <p key={i} style={{ fontSize: '14px', color: '#4b5563', marginBottom: '6px' }}>{i}</p>
-                  ))}
-                </div>
+        {/* ════════════════ PARTNERS MARQUEE ════════════════ */}
+        <section style={{ borderTop: '1px solid #e0e0dc', borderBottom: '1px solid #e0e0dc', padding: '18px 0' }}>
+          <div className="marquee-container">
+            <div className="marquee-track">
+              {[...DATA.partners, ...DATA.partners, ...DATA.partners, ...DATA.partners].map((p, i) => (
+                <span
+                  key={i}
+                  style={{
+                    fontSize: '12px',
+                    fontWeight: 600,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    color: '#999',
+                    whiteSpace: 'nowrap',
+                    padding: '0 48px',
+                  }}
+                >
+                  {p}
+                </span>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── WHAT WE DO ── */}
-        <section style={{ padding: '72px 0', borderBottom: '1px solid #d1d1d1' }}>
-          <div style={S.container}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'start' }}>
-              <div>
-                <p style={S.label}>Formal Mathematics & AI</p>
-                <h2 style={S.h2}>What We Do</h2>
-                <p style={{ ...S.body, marginBottom: '1.5rem' }}>
-                  We build the datasets and tools that mathematical AI needs. Our work centres on formal mathematical datasets in Lean 4 for AI theorem proving — structured process traces that capture not just correct proofs, but library-quality formalisations.
-                </p>
-                <p style={S.body}>
-                  We partner with frontier AI organisations and the Lean/Mathlib community to build training infrastructure for automated reasoning.
-                </p>
+        {/* ════════════════ THREE PILLARS ════════════════ */}
+        <section className="bg-grid" style={{ position: 'relative', overflow: 'hidden', padding: '96px 0' }}>
+          <Diamond size={24} top="10%" left="1%" green />
+
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <p className="section-label">How It Connects</p>
+            <h2 className="text-display-md" style={{ maxWidth: '500px', marginBottom: '64px' }}>
+              Three pillars, one infrastructure
+            </h2>
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '48px', alignItems: 'center' }}>
+              {/* Left: Formalisation */}
+              <PillarCard
+                title="Formalisation"
+                items={['Lean 4', 'Mathlib', 'Process Traces']}
+                active={activePillar === 0}
+                onHover={() => setActivePillar(0)}
+                onLeave={() => setActivePillar(null)}
+              />
+
+              {/* Center: Graph */}
+              <PillarsGraph active={activePillar} setActive={setActivePillar} />
+
+              {/* Right: Theoretical Science + AI */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
+                <PillarCard
+                  title="Theoretical Science"
+                  items={['Physics', 'Pure Mathematics', 'Geometry']}
+                  description="Talk series with Nobel Laureates and Fields Medalists. Winter schools in theoretical physics. Research programmes bridging pure mathematics and frontier science — open to anyone with drive, regardless of institution."
+                  green
+                  active={activePillar === 1}
+                  onHover={() => setActivePillar(1)}
+                  onLeave={() => setActivePillar(null)}
+                />
+                <PillarCard
+                  title="AI Theorem Proving"
+                  items={['Automated Reasoning', 'Verification', 'ML']}
+                  active={activePillar === 2}
+                  onHover={() => setActivePillar(2)}
+                  onLeave={() => setActivePillar(null)}
+                />
               </div>
-              <div>
-                <p style={S.label}>Research Programs</p>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                  <div style={{ borderLeft: '3px solid #1856FE', paddingLeft: '16px' }}>
-                    <p style={{ fontSize: '14px', color: '#4b5563', lineHeight: 1.6 }}>
-                      Talk series with Nobel laureates and Fields medalists, winter schools in theoretical physics, intensive research training, and one-on-one mentorships — building talent pipelines from overlooked regions into frontier research.
-                    </p>
-                  </div>
-                  <div style={{ borderLeft: '3px solid #d1d1d1', paddingLeft: '16px' }}>
-                    <p style={{ fontSize: '14px', color: '#4b5563', lineHeight: 1.6 }}>
-                      Youth delegations at UN climate convenings including SB60 and SB62, bridging rigorous science with climate justice — grounding policy in evidence.
-                    </p>
-                  </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ════════════════ WHAT WE DO (DARK) ════════════════ */}
+        <section className="bg-grid-dark" style={{ position: 'relative', overflow: 'hidden', padding: '96px 0' }}>
+          <div className="geo-diamond-dark geo-float" style={{ width: 60, height: 60, top: '10%', right: '5%' }} />
+          <div className="geo-diamond-dark geo-float-slow" style={{ width: 80, height: 80, bottom: '15%', left: '3%' }} />
+
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <p className="section-label-white">What We Do</p>
+            <h2 className="text-display-md" style={{ color: '#fff', maxWidth: '700px', marginBottom: '1.5rem' }}>
+              Formal Mathematics & AI
+            </h2>
+            <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#aaa', maxWidth: '640px', marginBottom: '2.5rem' }}>
+              We build the datasets and tools that mathematical AI needs. Our work centres on
+              formal mathematical datasets in Lean 4 for AI theorem proving — structured process
+              traces that capture not just correct proofs, but library-quality formalisations. We
+              partner with frontier AI organisations and the Lean/Mathlib community to build
+              training infrastructure for automated reasoning.
+            </p>
+            <Link href="/programs" className="btn-outline-white" style={{ marginBottom: '4rem' }}>
+              Explore Our Research
+            </Link>
+
+            <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '3rem', marginTop: '3rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px' }}>
+                <div>
+                  <h3 style={{ fontSize: '24px', fontWeight: 800, color: '#fff', marginBottom: '12px' }}>
+                    Research Programs
+                  </h3>
+                  <p style={{ fontSize: '15px', lineHeight: 1.7, color: '#aaa' }}>
+                    Talk series with Nobel laureates and Fields medalists, winter schools in
+                    theoretical physics, intensive research training, and one-on-one mentorships
+                    — building talent pipelines from overlooked regions into frontier research.
+                  </p>
+                </div>
+                <div>
+                  <h3 style={{ fontSize: '24px', fontWeight: 800, color: '#fff', marginBottom: '12px' }}>
+                    Science-Driven Climate Policy
+                  </h3>
+                  <p style={{ fontSize: '15px', lineHeight: 1.7, color: '#aaa' }}>
+                    Youth delegations at UN climate convenings including SB60 and SB62, bridging
+                    rigorous science with climate justice — grounding policy in evidence.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ── LEAN 4 WORKSHOP ── */}
-        <section style={{ padding: '72px 0', borderBottom: '1px solid #d1d1d1', background: '#f8f9fa' }}>
-          <div style={S.container}>
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '12px' }}>
-              <p style={{ ...S.label, marginBottom: 0 }}>Launching 2026 · Bonn + Remote</p>
-            </div>
-            <h2 style={S.h2}>Lean 4 Formalization Workshop</h2>
-            <p style={{ ...S.body, maxWidth: '600px', marginBottom: '2rem' }}>
-              An intensive training programme that takes mathematicians from zero Lean experience to library-quality formalisers — producing the structured process trace datasets that power AI theorem proving. In partnership with World Scientific.
+        {/* ════════════════ LEAN 4 WORKSHOP ════════════════ */}
+        <section className="bg-grid" style={{ position: 'relative', overflow: 'hidden', padding: '96px 0' }}>
+          <Diamond size={35} top="8%" right="15%" green />
+          <Diamond size={60} bottom="10%" right="3%" />
+          <Circle size={160} top="5%" right="-40px" />
+
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <p className="section-label" style={{ color: '#999' }}>Launching 2026 &middot; Bonn + Remote</p>
+
+            <h2 className="text-display-lg" style={{ marginBottom: '2rem', maxWidth: '900px' }}>
+              Lean 4<br />Formalization<br />Workshop
+            </h2>
+
+            <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555', maxWidth: '640px', marginBottom: '2rem' }}>
+              An intensive training programme that takes mathematicians from zero Lean experience
+              to library-quality formalisers — producing the structured process trace datasets that
+              power AI theorem proving. In partnership with World Scientific.
             </p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', marginBottom: '2rem' }}>
+
+            <div style={{ marginBottom: '2rem' }}>
               {[
                 { label: 'People', body: 'Training the next generation of formalisation researchers who can produce Mathlib-quality contributions.' },
                 { label: 'Data', body: 'Every formalisation generates a structured process trace — the training signal for mathematical AI.' },
                 { label: 'Tools', body: 'Building quality-aware formalisation infrastructure for the Lean/Mathlib ecosystem.' },
               ].map(item => (
-                <div key={item.label} style={{ border: '1px solid #d1d1d1', borderRadius: '10px', padding: '20px', background: '#fff' }}>
-                  <p style={{ fontSize: '13px', fontWeight: 700, color: '#0d1216', marginBottom: '8px' }}>{item.label}.</p>
-                  <p style={{ fontSize: '13px', color: '#4b5563', lineHeight: 1.6 }}>{item.body}</p>
-                </div>
+                <p key={item.label} style={{ fontSize: '15px', color: '#555', lineHeight: 1.7, marginBottom: '12px' }}>
+                  <strong style={{ color: '#0a0a0a', fontWeight: 700 }}>{item.label}.</strong> {item.body}
+                </p>
               ))}
             </div>
-            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              <Link href="/programs"><a style={S.btnBlue}>Learn More</a></Link>
-              <Link href="/contact"><a style={S.btnWhite}>Apply</a></Link>
+
+            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+              <Link href="/programs" className="btn-outline">Learn More</Link>
+              <Link href="/contact" className="btn-outline-light">Apply</Link>
             </div>
           </div>
         </section>
 
-        {/* ── SCIENTIFIC COMMUNITY ── */}
-        <section style={{ padding: '72px 0', borderBottom: '1px solid #d1d1d1' }}>
-          <div style={S.container}>
-            <p style={S.label}>Our Network</p>
-            <h2 style={S.h2}>Scientific Community</h2>
-            <p style={{ ...S.body, maxWidth: '600px', marginBottom: '2.5rem' }}>
-              Our research programs and talk series have featured Fields Medalists, Nobel Laureates, and frontier researchers across mathematics, physics, and AI.
+        {/* ════════════════ SCIENTIFIC COMMUNITY ════════════════ */}
+        <section style={{ borderTop: '1px solid #e0e0dc', position: 'relative', overflow: 'hidden', padding: '96px 0' }}>
+          <Diamond size={28} top="5%" left="1%" green />
+
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <p className="section-label">Scientific Community</p>
+            <h2 className="text-display-md" style={{ marginBottom: '1rem' }}>Our Network</h2>
+            <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555', maxWidth: '580px', marginBottom: '3rem' }}>
+              Our research programs and talk series have featured Fields Medalists, Nobel Laureates,
+              and frontier researchers across mathematics, physics, and AI.
             </p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
-              {[
-                { name: 'Maryna Viazovska', note: 'Fields Medal · Sphere Packings' },
-                { name: 'Sir Roger Penrose', note: 'Nobel Laureate · Twistor Theory' },
-                { name: 'Avi Loeb', note: 'Harvard · Astrophysics' },
-              ].map(p => (
-                <div key={p.name} style={{ border: '1px solid #d1d1d1', borderRadius: '10px', padding: '20px' }}>
-                  <p style={{ fontSize: '15px', fontWeight: 700, color: '#0d1216', marginBottom: '4px' }}>{p.name}</p>
-                  <p style={{ fontSize: '13px', color: '#4b5563' }}>{p.note}</p>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+              {DATA.network.map(person => (
+                <div key={person.name}>
+                  <div style={{
+                    width: '100%',
+                    aspectRatio: '3 / 4',
+                    overflow: 'hidden',
+                    background: '#e8e8e6',
+                    marginBottom: '16px',
+                  }}>
+                    {person.img && (
+                      <img
+                        src={person.img}
+                        alt={person.name}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      />
+                    )}
+                  </div>
+                  <p style={{
+                    fontSize: '12px',
+                    fontWeight: 600,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    color: '#0a0a0a',
+                    marginBottom: '4px',
+                  }}>
+                    {person.name}
+                  </p>
+                  <p style={{ fontSize: '13px', color: '#555' }}>{person.note}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── LEADERSHIP ── */}
-        <section style={{ padding: '72px 0' }}>
-          <div style={S.container}>
-            <p style={S.label}>Guided by world-class researchers</p>
-            <h2 style={S.h2}>Leadership</h2>
-            <p style={{ ...S.body, maxWidth: '560px', marginBottom: '2.5rem' }}>
-              Our scientific advisors bring decades of experience at the intersection of pure mathematics, theoretical physics, and machine learning.
-            </p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
-              {[
-                { name: 'Prof Yang-Hui He', note: 'Scientific Advisor & ML Director', url: 'https://en.wikipedia.org/wiki/Yang-Hui_He' },
-                { name: 'Prof Neil Lambert', note: 'Honorary Advisor', url: 'https://en.wikipedia.org/wiki/Neil_Lambert_(physicist)' },
-              ].map(a => (
-                <a key={a.name} href={a.url} target="_blank" rel="noopener noreferrer"
-                   style={{ display: 'block', border: '1px solid #d1d1d1', borderRadius: '10px', padding: '20px', textDecoration: 'none', transition: 'border-color 0.15s' }}
-                   onMouseEnter={e => e.currentTarget.style.borderColor = '#1856FE'}
-                   onMouseLeave={e => e.currentTarget.style.borderColor = '#d1d1d1'}>
-                  <p style={{ fontSize: '15px', fontWeight: 700, color: '#0d1216', marginBottom: '4px' }}>{a.name}</p>
-                  <p style={{ fontSize: '13px', color: '#4b5563' }}>{a.note}</p>
-                </a>
+        {/* ════════════════ LEADERSHIP ════════════════ */}
+        <section style={{ borderTop: '1px solid #e0e0dc', position: 'relative', overflow: 'hidden', padding: '96px 0' }}>
+          <Diamond size={24} bottom="10%" left="1%" green />
+
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '48px', alignItems: 'start' }}>
+              {/* Left: text */}
+              <div>
+                <p className="section-label">Leadership</p>
+                <h2 className="text-display-md" style={{ marginBottom: '1rem' }}>
+                  Guided by world-class researchers
+                </h2>
+                <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555', marginBottom: '2rem' }}>
+                  Our scientific advisors bring decades of experience at the intersection of
+                  pure mathematics, theoretical physics, and machine learning.
+                </p>
+                <Link href="/team" className="btn-outline">Full Team</Link>
+              </div>
+
+              {/* Right: advisor photos */}
+              {DATA.team.advisors.map(a => (
+                <div key={a.name}>
+                  <div style={{
+                    width: '100%',
+                    aspectRatio: '4 / 5',
+                    overflow: 'hidden',
+                    background: '#e8e8e6',
+                    marginBottom: '16px',
+                  }}>
+                    {a.img && (
+                      <img
+                        src={a.img}
+                        alt={a.name}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      />
+                    )}
+                  </div>
+                  <p style={{
+                    fontSize: '12px',
+                    fontWeight: 600,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    color: '#0a0a0a',
+                    marginBottom: '4px',
+                  }}>
+                    {a.name}
+                  </p>
+                  <p style={{ fontSize: '13px', color: '#555' }}>{a.role}</p>
+                </div>
               ))}
             </div>
           </div>

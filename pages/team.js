@@ -1,80 +1,231 @@
+import { useState } from 'react';
 import { NextSeo } from 'next-seo';
 import DATA from '../lib/data';
 
-const S = {
-  page: { background: '#fff', color: '#0d1216', fontFamily: 'Manrope, sans-serif' },
-  container: { maxWidth: '80rem', margin: '0 auto', padding: '0 1.5rem' },
-  label: { fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#4b5563', marginBottom: '10px' },
-  h1: { fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 800, lineHeight: 1.15, color: '#0d1216', marginBottom: '1.25rem' },
-  h2: { fontSize: 'clamp(1.35rem, 2.5vw, 1.75rem)', fontWeight: 700, color: '#0d1216', marginBottom: '1rem' },
-  body: { fontSize: '15px', lineHeight: 1.75, color: '#4b5563' },
-};
+function Diamond({ size = 40, top, left, right, bottom, green }) {
+  return (
+    <div
+      className={green ? 'geo-diamond geo-float' : 'geo-diamond-outline geo-float-slow'}
+      style={{ width: size, height: size, top, left, right, bottom }}
+    />
+  );
+}
+
+function Circle({ size = 120, top, right, bottom, left }) {
+  return <div className="geo-circle" style={{ width: size, height: size, top, right, bottom, left }} />;
+}
+
+/* ── Team member modal ── */
+function TeamModal({ person, onClose }) {
+  if (!person) return null;
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={e => e.stopPropagation()}>
+        <button
+          onClick={onClose}
+          style={{
+            position: 'absolute',
+            top: '20px',
+            right: '20px',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '20px',
+            color: '#999',
+            lineHeight: 1,
+          }}
+          aria-label="Close"
+        >
+          &times;
+        </button>
+
+        <p style={{
+          fontSize: '12px',
+          fontWeight: 600,
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em',
+          color: '#5CB85C',
+          marginBottom: '8px',
+        }}>
+          {person.role}
+        </p>
+        <h3 style={{ fontSize: '24px', fontWeight: 800, color: '#0a0a0a', marginBottom: '4px' }}>
+          {person.name}
+        </h3>
+        {person.institution && (
+          <p style={{ fontSize: '14px', color: '#999', marginBottom: '20px' }}>{person.institution}</p>
+        )}
+        <p style={{ fontSize: '15px', lineHeight: 1.75, color: '#555', marginBottom: '16px' }}>
+          {person.bio}
+        </p>
+        {person.extendedBio && (
+          <p style={{ fontSize: '15px', lineHeight: 1.75, color: '#555' }}>
+            {person.extendedBio}
+          </p>
+        )}
+        {person.wikipedia && (
+          <a
+            href={person.wikipedia}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover-underline"
+            style={{
+              display: 'inline-block',
+              marginTop: '20px',
+              fontSize: '13px',
+              fontWeight: 600,
+              color: '#5CB85C',
+              textDecoration: 'none',
+            }}
+          >
+            Wikipedia profile &rarr;
+          </a>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function Team() {
+  const [selectedPerson, setSelectedPerson] = useState(null);
+
   return (
     <>
       <NextSeo title="Team" description="The BMUCO core team and scientific advisors." />
-      <main style={S.page}>
+      <main>
 
-        {/* Hero */}
-        <section style={{ padding: '72px 0 56px', borderBottom: '1px solid #d1d1d1' }}>
-          <div style={S.container}>
-            <p style={S.label}>Our People</p>
-            <h1 style={S.h1}>Core team & advisors</h1>
-            <p style={{ ...S.body, maxWidth: '580px' }}>
-              BMUCO is built by a diverse, neurodivergent-led team committed to equity and excellence in theoretical science and AI.
+        {/* ══ HERO ══ */}
+        <section className="bg-grid" style={{
+          position: 'relative',
+          overflow: 'hidden',
+          padding: '80px 0 60px',
+          background: '#f2f2f0',
+        }}>
+          <Diamond size={50} top="15%" right="12%" />
+          <Diamond size={35} top="40%" right="6%" />
+          <Circle size={160} top="-40px" right="20%" />
+
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <h1 className="text-display-xl" style={{ marginBottom: '1.5rem' }}>Team</h1>
+            <p style={{
+              fontSize: '12px',
+              fontWeight: 600,
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              color: '#555',
+            }}>
+              Formal Verification &middot; AI Theorem Proving &middot; Lean 4 Datasets
             </p>
           </div>
         </section>
 
-        {/* Scientific Advisors */}
-        <section style={{ padding: '64px 0', borderBottom: '1px solid #d1d1d1' }}>
-          <div style={S.container}>
-            <p style={S.label}>World-class guidance</p>
-            <h2 style={S.h2}>Scientific Advisors</h2>
-            <p style={{ ...S.body, marginBottom: '2rem' }}>World renowned experts guiding BMUCO's vision.</p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
-              {DATA.team.advisors.map(a => (
-                <a key={a.name} href={a.wikipedia} target="_blank" rel="noopener noreferrer"
-                   style={{ display: 'block', border: '1px solid #d1d1d1', borderRadius: '10px', padding: '24px', textDecoration: 'none', transition: 'border-color 0.15s' }}
-                   onMouseEnter={e => e.currentTarget.style.borderColor = '#1856FE'}
-                   onMouseLeave={e => e.currentTarget.style.borderColor = '#d1d1d1'}>
-                  <p style={{ fontSize: '17px', fontWeight: 700, color: '#0d1216', marginBottom: '4px' }}>{a.name}</p>
-                  <p style={{ fontSize: '13px', color: '#4b5563', marginBottom: '10px' }}>{a.note}</p>
-                  <p style={{ fontSize: '12px', color: '#1856FE', fontWeight: 600 }}>View Wikipedia profile →</p>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* ══ SCIENTIFIC ADVISORS ══ */}
+        <section style={{ borderTop: '1px solid #e0e0dc', padding: '96px 0' }}>
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <p className="section-label">Scientific Advisors</p>
+            <h2 className="text-display-md" style={{ marginBottom: '3rem', maxWidth: '700px' }}>
+              World-renowned experts guiding our vision
+            </h2>
 
-        {/* Core Team */}
-        <section style={{ padding: '64px 0' }}>
-          <div style={S.container}>
-            <p style={S.label}>Core Team</p>
-            <h2 style={S.h2}>Directors & Leads</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '24px', marginTop: '24px' }}>
-              {DATA.team.core.map(m => (
-                <div key={m.name} style={{ border: '1px solid #d1d1d1', borderRadius: '10px', overflow: 'hidden' }}>
-                  {/* Portrait */}
-                  <div style={{ width: '100%', aspectRatio: '1 / 1', overflow: 'hidden', background: '#f3f4f6' }}>
-                    {m.img ? (
-                      <img src={m.img} alt={m.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    ) : (
-                      <div style={{ width: '100%', height: '100%', background: '#f3f4f6' }} />
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '32px', maxWidth: '700px' }}>
+              {DATA.team.advisors.map(a => (
+                <div
+                  key={a.name}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => setSelectedPerson(a)}
+                >
+                  <div style={{
+                    width: '100%',
+                    aspectRatio: '4 / 5',
+                    overflow: 'hidden',
+                    background: '#e8e8e6',
+                    marginBottom: '16px',
+                    transition: 'opacity 0.2s ease',
+                  }}
+                    onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
+                    onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                  >
+                    {a.img && (
+                      <img
+                        src={a.img}
+                        alt={a.name}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      />
                     )}
                   </div>
-                  {/* Info */}
-                  <div style={{ padding: '16px' }}>
-                    <p style={{ fontSize: '15px', fontWeight: 700, color: '#0d1216', marginBottom: '2px' }}>{m.name}</p>
-                    <p style={{ fontSize: '13px', fontWeight: 600, color: '#1856FE', marginBottom: '8px' }}>{m.role}</p>
-                    <p style={{ fontSize: '13px', color: '#4b5563', lineHeight: 1.6 }}>{m.shortBio}</p>
-                  </div>
+                  <p style={{
+                    fontSize: '12px',
+                    fontWeight: 600,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    color: '#0a0a0a',
+                    marginBottom: '4px',
+                  }}>
+                    {a.name}
+                  </p>
+                  <p style={{ fontSize: '13px', color: '#555' }}>{a.role}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
+
+        {/* ══ CORE TEAM ══ */}
+        <section style={{ borderTop: '1px solid #e0e0dc', position: 'relative', overflow: 'hidden', padding: '96px 0' }}>
+          <Diamond size={30} bottom="10%" left="2%" />
+          <Circle size={100} top="5%" right="-30px" />
+
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <h2 className="text-display-md" style={{ marginBottom: '3rem' }}>Core Team</h2>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px' }}>
+              {DATA.team.core.map(m => (
+                <div
+                  key={m.name}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => setSelectedPerson(m)}
+                >
+                  <div style={{
+                    width: '100%',
+                    aspectRatio: '3 / 4',
+                    overflow: 'hidden',
+                    background: '#e8e8e6',
+                    marginBottom: '16px',
+                    transition: 'opacity 0.2s ease',
+                  }}
+                    onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
+                    onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                  >
+                    {m.img && (
+                      <img
+                        src={m.img}
+                        alt={m.name}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      />
+                    )}
+                  </div>
+                  <p style={{
+                    fontSize: '12px',
+                    fontWeight: 600,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1em',
+                    color: '#0a0a0a',
+                    marginBottom: '4px',
+                  }}>
+                    {m.name}
+                  </p>
+                  <p style={{ fontSize: '13px', fontWeight: 600, color: '#0a0a0a', marginBottom: '2px' }}>
+                    {m.role}
+                  </p>
+                  <p style={{ fontSize: '13px', color: '#555' }}>{m.institution}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ══ MODAL ══ */}
+        <TeamModal person={selectedPerson} onClose={() => setSelectedPerson(null)} />
 
       </main>
     </>
