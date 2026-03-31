@@ -38,7 +38,7 @@ export default function About() {
     <>
       <NextSeo
         title="About"
-        description="BMUCO is a modern science lab and think tank at the intersection of science and AI."
+        description="BMUCO is a Deeptech and Theoretical Science lab. We operate on a non-profit basis"
       />
       <main>
 
