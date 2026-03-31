@@ -1,5 +1,4 @@
 module.exports = {
-  darkMode: 'class',
   content: [
     "./pages/**/*.{js,jsx}",
     "./components/**/*.{js,jsx}"
@@ -7,16 +6,19 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        obsidian: 'hsl(var(--obsidian))',
-        charcoal: 'hsl(var(--charcoal))',
-        paper: 'hsl(var(--paper))',
-        'oxford-green': 'hsl(var(--oxford-green))',
-        'sage-mist': 'hsl(var(--sage-mist))',
-        'cosmic-blue': 'hsl(var(--cosmic-blue))',
+        'blue-primary': '#1856FE',
+        'blue-hover': '#1449e0',
+        'blue-light': '#eff4ff',
+        'border-color': '#d1d1d1',
+        'border-hover': '#e2e3e4',
+        'text-primary': '#0d1216',
+        'text-secondary': '#4b5563',
+        'text-muted': '#9ca3af',
+        'off-white': '#f8f9fa',
+        'light-gray': '#f3f4f6',
       },
       fontFamily: {
-        serif: ['"DM Serif Display"', 'Georgia', 'serif'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Manrope', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
       },
     },
   },

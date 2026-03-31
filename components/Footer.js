@@ -1,65 +1,59 @@
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function Footer() {
+  const navLinks = [
+    { href: '/about', label: 'About' },
+    { href: '/programs', label: 'Research' },
+    { href: '/team', label: 'Team' },
+    { href: '/partners', label: 'Partners' },
+    { href: '/contact', label: 'Contact' },
+  ];
+
   return (
-    <footer className="border-t border-white/10 bg-obsidian py-16 text-paper">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid gap-12 md:grid-cols-4">
-          
-          {/* About - With Logo */}
+    <footer style={{ borderTop: '1px solid #d1d1d1', background: '#fff', padding: '48px 0 32px' }}>
+      <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 1.5rem' }}>
+
+        {/* Follow us + nav row */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '40px', justifyContent: 'space-between', marginBottom: '40px' }}>
+
+          {/* Follow Us */}
           <div>
-            <div className="mb-4 inline-flex items-center gap-3">
-              <Image
-                src="/images/logo.png"
-                alt="BMUCO"
-                width={40}
-                height={40}
-                className="rounded-lg"
-              />
-              <div>
-                <p className="text-sm font-serif font-bold text-white tracking-wide">BMUCO</p>
-                <p className="-mt-1 text-[10px] text-sage-mist uppercase tracking-widest">Since 2017</p>
-              </div>
+            <p style={{ fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#4b5563', marginBottom: '14px' }}>Follow Us</p>
+            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+              {[
+                { href: 'https://x.com/bmuco_org', label: 'X (Twitter)' },
+                { href: 'https://www.facebook.com/bmuco.org/', label: 'Facebook' },
+                { href: 'https://www.linkedin.com/company/bmuco', label: 'LinkedIn' },
+                { href: 'https://www.youtube.com/@bmuco5856', label: 'YouTube' },
+              ].map(s => (
+                <a key={s.href} href={s.href} target="_blank" rel="noopener noreferrer"
+                   style={{ fontSize: '14px', fontWeight: 500, color: '#4b5563', textDecoration: 'none' }}
+                   onMouseEnter={e => e.currentTarget.style.color = '#0d1216'}
+                   onMouseLeave={e => e.currentTarget.style.color = '#4b5563'}>
+                  {s.label}
+                </a>
+              ))}
             </div>
-            <p className="text-sm text-paper/60 leading-relaxed">
-              A global, independent science organisation.
-            </p>
           </div>
 
-          {/* Navigate */}
-          <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-sage-mist">Navigate</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="/about"><a className="text-paper/60 transition hover:text-white">About</a></Link></li>
-              <li><Link href="/programs"><a className="text-paper/60 transition hover:text-white">Programs</a></Link></li>
-              <li><Link href="/talks"><a className="text-paper/60 transition hover:text-white">Talks</a></Link></li>
-              <li><Link href="/partners"><a className="text-paper/60 transition hover:text-white">Partners</a></Link></li>
-              <li><Link href="/team"><a className="text-paper/60 transition hover:text-white">Team</a></Link></li>
-            </ul>
-          </div>
-
-          {/* Support */}
-          <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-sage-mist">Support</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link href="/join"><a className="text-paper/60 transition hover:text-white">Join</a></Link></li>
-              <li><Link href="/contact"><a className="text-paper/60 transition hover:text-white">Contact</a></Link></li>
-            </ul>
-          </div>
-
-          {/* Policies */}
-          <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-sage-mist">Policies</h3>
-            <ul className="space-y-2 text-sm">
-              <li><span className="text-paper/60">Independent Organisation</span></li>
-              <li><span className="text-paper/60">Privacy Policy</span></li>
-            </ul>
-          </div>
+          {/* Nav links */}
+          <nav style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', alignItems: 'center' }}>
+            {navLinks.map(l => (
+              <Link key={l.href} href={l.href}>
+                <a style={{ fontSize: '14px', fontWeight: 500, color: '#4b5563', textDecoration: 'none' }}
+                   onMouseEnter={e => e.currentTarget.style.color = '#0d1216'}
+                   onMouseLeave={e => e.currentTarget.style.color = '#4b5563'}>
+                  {l.label}
+                </a>
+              </Link>
+            ))}
+          </nav>
         </div>
 
-        <div className="mt-12 border-t border-white/10 pt-8 text-center text-sm text-paper/40">
-          © {new Date().getFullYear()} BMUCO. All rights reserved.
+        {/* Bottom bar */}
+        <div style={{ borderTop: '1px solid #d1d1d1', paddingTop: '24px', display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'space-between', alignItems: 'center' }}>
+          <p style={{ fontSize: '13px', color: '#9ca3af' }}>© 2026 BMUCO. All rights reserved.</p>
+          <p style={{ fontSize: '13px', color: '#9ca3af' }}>Formal mathematics · AI theorem proving · Bonn, Germany</p>
         </div>
       </div>
     </footer>

@@ -1,193 +1,146 @@
-/* 1️⃣ Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700&display=swap');
+/* 1️⃣ Google Fonts — Manrope */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
 
 /* 2️⃣ Tailwind layers */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* 3️⃣ CSS variables + custom classes - BALANCED DARKNESS */
+/* 3️⃣ CSS variables — clean light theme */
 :root {
-  --obsidian: 160 22% 2.5%;
-  --charcoal: 160 18% 7%;
-  --paper: 60 18% 94%;
-  --oxford-green: 160 42% 18%;
-  --sage-mist: 150 18% 60%;
-  --cosmic-blue: 220 52% 18%;
-
-  --gradient-cosmic: linear-gradient(
-    135deg,
-    hsl(160 22% 3%) 0%,
-    hsl(160 18% 5%) 50%,
-    hsl(220 30% 6%) 100%
-  );
-
-  --gradient-nebula: radial-gradient(ellipse at 30% 20%, hsl(160 48% 20% / 0.12) 0%, transparent 50%),
-                      radial-gradient(ellipse at 70% 80%, hsl(280 40% 15% / 0.08) 0%, transparent 40%);
-
-  /* Enhanced gradient for better visibility on dark background */
-  --gradient-hero-text: linear-gradient(
-    135deg,
-    hsl(0 0% 100%) 0%,
-    hsl(150 25% 75%) 50%,
-    hsl(150 30% 70%) 100%
-  );
+  --white: #ffffff;
+  --off-white: #f8f9fa;
+  --light-gray: #f3f4f6;
+  --border: #d1d1d1;
+  --border-hover: #e2e3e4;
+  --text-primary: #0d1216;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
+  --blue-primary: #1856FE;
+  --blue-hover: #1449e0;
+  --blue-light: #eff4ff;
 }
 
-/* 4️⃣ Custom utility classes */
-.text-gradient-hero {
-  color: hsl(60 18% 94%);  /* This is your --paper color */
-}
-
-
-/* Animated hero brand text - slightly darker, more pronounced */
-/* Animated hero brand text - green-blue gradient matching BMUCO brand */
-.hero-bmuco {
-  display: inline-block;
-  background: linear-gradient(90deg, #6FD98A, #4ECDC4, #45B7D1, #5DADE2, #4ECDC4, #6FD98A);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradient-shift 8s ease infinite;
-}
-
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.bg-cosmic { background: var(--gradient-cosmic); }
-.bg-nebula { background: var(--gradient-nebula); }
-
-.noise-overlay {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity: 0.03;
-}
-
-.mask-gradient {
-  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-}
-
-.animate-scroll {
-  animation: scroll 30s linear infinite;
-}
-
-@keyframes scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-/* 5️⃣ Tailwind base overrides */
+/* 4️⃣ Tailwind base overrides */
 @layer base {
   body {
-    @apply bg-obsidian text-paper font-sans;
-    font-family: 'Inter', system-ui, sans-serif;
+    background: #ffffff;
+    color: var(--text-primary);
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply text-white tracking-tight;
-    font-family: 'DM Serif Display', Georgia, serif;
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 700;
+    color: var(--text-primary);
   }
 }
 
-/* MOBILE-ONLY IMPROVEMENTS - Desktop unchanged */
-@media (max-width: 640px) {
-  .hero-h1 {
-    font-size: 2.25rem !important;
-    line-height: 1.1;
-    text-align: left;
-  }
-  
-  .hero-desc {
-    font-size: 1rem !important;
-    line-height: 1.5;
-  }
+/* 5️⃣ Shared utility classes */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: var(--blue-primary);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  text-decoration: none;
 }
 
-@media (max-width: 640px) {
-  .slideshow-dots {
-    gap: 0.5rem;
-  }
-  .slideshow-dots .h-1\.5 { height: 0.375rem; }
-  .slideshow-dots .w-8 { width: 2rem; }
+.btn-primary:hover {
+  background: var(--blue-hover);
 }
 
-@media (max-width: 640px) {
-  .cta-mobile {
-    padding: 1rem 1.5rem !important;
-    min-height: 3rem;
-    display: inline-flex;
-    align-items: center;
-  }
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: #ffffff;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  text-decoration: none;
 }
 
-@media (max-width: 640px) {
-  .stats-mobile {
-    grid-template-columns: 1fr !important;
-    gap: 1rem;
-  }
+.btn-secondary:hover {
+  background: var(--border-hover);
 }
-/* BLOG-SPECIFIC STYLES */
+
+/* 6️⃣ Blog/prose styles — light theme */
 .prose {
-  color: hsl(var(--paper));
+  color: var(--text-primary);
 }
 
 .prose h2 {
-  @apply text-3xl font-serif text-white mt-12 mb-6;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
 }
 
 .prose h3 {
-  @apply text-2xl font-serif text-white mt-8 mb-4;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 .prose p {
-  @apply text-base text-paper/80 leading-relaxed mb-6;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
 }
 
 .prose a {
-  @apply text-sage-mist hover:text-white transition underline;
+  color: var(--blue-primary);
+  text-decoration: underline;
+  transition: color 0.15s ease;
 }
 
-.prose ul, .prose ol {
-  @apply text-paper/80 mb-6;
+.prose a:hover {
+  color: var(--blue-hover);
+}
+
+.prose ul,
+.prose ol {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
 }
 
 .prose li {
-  @apply mb-2;
+  margin-bottom: 0.5rem;
 }
 
 .prose strong {
-  @apply text-white font-semibold;
+  color: var(--text-primary);
+  font-weight: 600;
 }
 
 .prose code {
-  @apply bg-charcoal/60 text-sage-mist px-2 py-1 rounded text-sm;
+  background: var(--light-gray);
+  color: var(--text-primary);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.875rem;
 }
 
 .prose img {
-  @apply rounded-xl border border-white/10 my-8;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin: 2rem 0;
 }
-
-/* Mobile blog adjustments */
-@media (max-width: 640px) {
-  .prose {
-    @apply text-sm;
-  }
-  
-  .prose h2 {
-    @apply text-2xl;
-  }
-  
-  .prose h3 {
-    @apply text-xl;
-  }
-}
-
