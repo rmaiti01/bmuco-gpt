@@ -33,7 +33,7 @@ export default function Programs() {
 
           <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
             <h1 className="text-display-xl" style={{ marginBottom: '1.5rem', maxWidth: '1000px' }}>
-              Research &<br />Infrastructure
+              Research &<br className="hidden md:block" />Infrastructure
             </h1>
             <p style={{
               fontSize: '12px',
@@ -182,7 +182,7 @@ export default function Programs() {
             </h2>
             <div style={{ maxWidth: '700px' }}>
               <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555', marginBottom: '1.5rem' }}>
-                <strong style={{ color: '#0a0a0a' }}>Under Dr Edward Hirst:</strong> 3-month Summer Research Assistant Program. Devashish delved into a fascinating machine learning project focused on dessins.
+                <strong style={{ color: '#0a0a0a' }}>Under Dr Edward Hirst (PhD in Math+ML at the University of London):</strong> 3-month Summer Research Assistant Program. BMUCO Summer Fellow Devashish delved into a fascinating machine learning project focused on dessins.
               </p>
             </div>
           </div>

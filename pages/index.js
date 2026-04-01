@@ -113,7 +113,7 @@ export default function Home() {
 
           <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
             <h1 className="text-display-xl" style={{ marginBottom: '2rem', maxWidth: '1100px' }}>
-              Formal<br />Mathematics<br />
+              Formal<br className="hidden md:block" />Mathematics<br className="hidden md:block" />
               <span className="text-green">Meets</span> AI
             </h1>
             <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555', maxWidth: '580px', marginBottom: '2.5rem' }}>
@@ -235,7 +235,7 @@ export default function Home() {
             <p className="section-label" style={{ color: '#999' }}>Launching 2026 &middot; Bonn + Remote</p>
 
             <h2 className="text-display-lg" style={{ marginBottom: '2rem', maxWidth: '900px' }}>
-              Lean 4<br />Formalization<br />Workshop
+              Lean 4<br className="hidden md:block" />Formalization<br className="hidden md:block" />Workshop
             </h2>
 
             <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555', maxWidth: '640px', marginBottom: '2rem' }}>
