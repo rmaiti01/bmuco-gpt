@@ -127,7 +127,7 @@ export default function Team() {
               World-renowned experts guiding our vision
             </h2>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '32px', maxWidth: '700px' }}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-[700px]">
               {DATA.team.advisors.map(a => (
                 <div
                   key={a.name}
@@ -178,7 +178,7 @@ export default function Team() {
           <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
             <h2 className="text-display-md" style={{ marginBottom: '3rem' }}>Core Team</h2>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px' }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
               {DATA.team.core.map(m => (
                 <div
                   key={m.name}

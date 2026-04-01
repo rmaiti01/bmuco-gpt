@@ -38,7 +38,7 @@ export default function About() {
     <>
       <NextSeo
         title="About"
-        description="BMUCO is a Deeptech and Theoretical Science lab. We operate on a non-profit basis"
+        description="BMUCO is a Deeptech and Theoretical Science lab. We operate on a non-profit basis."
       />
       <main>
 
@@ -71,7 +71,7 @@ export default function About() {
               From grassroots to frontier
             </h2>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px', alignItems: 'start' }}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
               {/* Left: photo */}
               <div style={{
                 width: '100%',
@@ -125,7 +125,7 @@ export default function About() {
               correctness.
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px' }}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
                 {
                   title: 'Frontier Science Without Gatekeeping',

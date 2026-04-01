@@ -66,7 +66,7 @@ export default function Contact() {
         {/* ══ FORM + INFO ══ */}
         <section style={{ borderTop: '1px solid #e0e0dc', padding: '96px 0' }}>
           <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '80px', alignItems: 'start' }}>
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-20 items-start">
 
               {/* Left: contact info */}
               <div>
@@ -203,7 +203,7 @@ export default function Contact() {
             </h2>
             <p style={{ fontSize: '15px', color: '#555', marginBottom: '2.5rem' }}>Reach us directly</p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px' }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
               {directInquiries.map(item => (
                 <div key={item.title} style={{ borderTop: '2px solid #0a0a0a', paddingTop: '20px' }}>
                   <p style={{ fontSize: '16px', fontWeight: 700, color: '#0a0a0a', marginBottom: '8px' }}>

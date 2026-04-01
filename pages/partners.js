@@ -104,7 +104,7 @@ export default function Partners() {
               We're open to any partnership that advances equitable science infrastructure.
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px' }}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
               {collaborationTypes.map(ct => (
                 <div key={ct.title} style={{ borderTop: '2px solid #0a0a0a', paddingTop: '20px' }}>
                   <p style={{ fontSize: '16px', fontWeight: 700, color: '#0a0a0a', marginBottom: '8px' }}>

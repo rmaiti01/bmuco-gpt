@@ -90,13 +90,7 @@ export default function Programs() {
                 The programme addresses three integrated outputs:
               </p>
 
-              {/* People / Data / Tools columns */}
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(3, 1fr)',
-                gap: '32px',
-                marginBottom: '2.5rem',
-              }}>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
                 {[
                   {
                     icon: '#5CB85C',
@@ -172,6 +166,61 @@ export default function Programs() {
                 people; our process traces produce the data; and our tools integrate quality evaluation into
                 the generation loop. All outputs are designed to be complementary to existing efforts in the
                 Lean/Mathlib ecosystem.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ══ RESEARCH SUPERVISION PROGRAM ══ */}
+        <section style={{ borderTop: '1px solid #e0e0dc', position: 'relative', overflow: 'hidden', padding: '96px 0' }}>
+          <Diamond size={40} top="10%" right="5%" />
+
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <p className="section-label-green">Student Research</p>
+            <h2 style={{ fontSize: '28px', fontWeight: 800, color: '#0a0a0a', marginBottom: '1.5rem', maxWidth: '600px' }}>
+              Research Supervision Program
+            </h2>
+            <div style={{ maxWidth: '700px' }}>
+              <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555', marginBottom: '1.5rem' }}>
+                <strong style={{ color: '#0a0a0a' }}>Under Dr Edward Hirst:</strong> 3-month Summer Research Assistant Program. Devashish delved into a fascinating machine learning project focused on dessins.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ══ WINTER SCHOOL IN QUANTUM PHYSICS ══ */}
+        <section style={{ borderTop: '1px solid #e0e0dc', position: 'relative', overflow: 'hidden', padding: '96px 0' }}>
+          <Circle size={80} bottom="10%" left="2%" />
+          <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
+            <p className="section-label-green">Past Programs</p>
+            <h2 style={{ fontSize: '28px', fontWeight: 800, color: '#0a0a0a', marginBottom: '1.5rem', maxWidth: '600px' }}>
+              Winter School in Quantum Physics
+            </h2>
+            <div style={{ maxWidth: '700px' }}>
+              <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555', marginBottom: '1.5rem' }}>
+                <strong>Date and Time:</strong> 4th - 11th January 2021<br />
+                This Winter school was delivered online via Zoom, targeting Undergraduate students interested in pursuing a research career in mathematics and physics. Lectures covered the background needed for quantum field theory, including classical field theory, special relativity, and quantum mechanics, eventually leading to Quantum Field Theory.
+              </p>
+              
+              <h4 style={{ fontSize: '18px', fontWeight: 700, color: '#0a0a0a', marginBottom: '12px' }}>Topics Covered</h4>
+              <ul style={{ listStyleType: 'disc', paddingLeft: '20px', color: '#555', marginBottom: '24px', lineHeight: 1.75 }}>
+                <li><strong>Classical Field theory and Special relativity:</strong> Elijah Cavan, University of Waterloo (4th & 6th)</li>
+                <li><strong>Quantum Mechanics:</strong> Prof Gleb Gribarkin, Queen's University Belfast (8th)</li>
+                <li><strong>Quantum Field Theory:</strong> Prof Neil Lambert, King's College London (11th)</li>
+              </ul>
+              
+              <h4 style={{ fontSize: '18px', fontWeight: 700, color: '#0a0a0a', marginBottom: '12px' }}>Topic Description</h4>
+              <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555', marginBottom: '1.5rem' }}>
+                <strong>Quantum Field Theory (QFT)</strong> is the mathematical and conceptual framework for contemporary elementary particle physics. It is also a framework used in other areas of theoretical physics, such as condensed matter physics and statistical mechanics.
+              </p>
+              <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555', marginBottom: '1.5rem' }}>
+                <strong>Quantum mechanics</strong> is a fundamental theory in physics that provides a description of the physical properties of nature at the scale of atoms and subatomic particles. It is the foundation of all quantum physics including quantum chemistry, quantum field theory, quantum technology, and quantum information science.
+              </p>
+              <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555', marginBottom: '1.5rem' }}>
+                <strong>Classical field theory</strong> predicts how one or more physical fields interact with matter through field equations. The term is commonly reserved for describing those physical theories that describe electromagnetism and gravitation.
+              </p>
+              <p style={{ fontSize: '16px', lineHeight: 1.75, color: '#555' }}>
+                <strong>Special relativity</strong> plays an important role in the modern theory of classical electromagnetism, providing formulas for how electromagnetic objects are altered under a Lorentz transformation and explaining how to transform Maxwell's equations.
               </p>
             </div>
           </div>

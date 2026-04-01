@@ -192,7 +192,7 @@ export default function Home() {
             </Link>
 
             <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '3rem', marginTop: '3rem' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '48px' }}>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                 <div>
                   <h3 style={{ fontSize: '24px', fontWeight: 800, color: '#fff', marginBottom: '12px' }}>
                     Quantum Computing
@@ -275,7 +275,7 @@ export default function Home() {
               and frontier researchers across mathematics, physics, and AI.
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {DATA.network.map(person => (
                 <div key={person.name}>
                   <div style={{
@@ -315,7 +315,7 @@ export default function Home() {
           <Diamond size={24} bottom="10%" left="1%" green />
 
           <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '48px', alignItems: 'start' }}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
               {/* Left: text */}
               <div>
                 <p className="section-label">Leadership</p>
