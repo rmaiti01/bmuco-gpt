@@ -68,12 +68,15 @@ export default function Programs() {
         {/* ══ LEAN 4 WORKSHOP CARD ══ */}
         <section style={{ padding: '0 0 96px' }}>
           <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
-            <div style={{
-              border: '1px solid #e0e0dc',
-              padding: '48px',
-              position: 'relative',
-              overflow: 'hidden',
-            }}>
+            <div
+              className="programs-card"
+              style={{
+                border: '1px solid #e0e0dc',
+                padding: '48px',
+                position: 'relative',
+                overflow: 'hidden',
+              }}
+            >
               <Circle size={120} top="-40px" right="-40px" />
 
               <p className="section-label-green" style={{ marginBottom: '12px' }}>

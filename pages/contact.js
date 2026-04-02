@@ -66,7 +66,7 @@ export default function Contact() {
         {/* ══ FORM + INFO ══ */}
         <section style={{ borderTop: '1px solid #e0e0dc', padding: '96px 0' }}>
           <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 2rem' }}>
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-20 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-10 items-start">
 
               {/* Left: contact info */}
               <div>
@@ -172,6 +172,7 @@ export default function Contact() {
                     style={{
                       alignSelf: 'flex-start',
                       opacity: isSubmitting ? 0.5 : 1,
+                      width: '100%',
                     }}
                   >
                     {isSubmitting ? 'Sending...' : 'Send Message'}

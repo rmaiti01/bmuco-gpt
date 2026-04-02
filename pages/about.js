@@ -71,7 +71,7 @@ export default function About() {
               From grassroots to frontier
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
               {/* Left: photo */}
               <div style={{
                 width: '100%',
