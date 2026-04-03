@@ -3,7 +3,7 @@ module.exports = {
     return [
       {
         source: '/studio/:path*',
-        destination: 'https://bmuco-workshop-platform.vercel.app/:path*',
+        destination: 'https://bmuco-workshop-platform-git-main-rmaiti01s-projects.vercel.app/:path*',
       },
     ]
   },
